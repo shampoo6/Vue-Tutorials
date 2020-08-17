@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .color1 {
+            background-color: crimson;
+        }
+
+        .color2 {
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!-- 文本取值 -->
+    <p>{{msg}}</p>
+    <!-- 单次取值 -->
+    <p v-once>{{msg}}</p>
+    <p>
+        <button @click="btn1">btn1</button>
+    </p>
+    <p>
+        <button @click="btn2">btn2</button>
+    </p>
+    <!-- 输出html -->
+    <p>{{myHtml}}</p>
+    <p v-html="myHtml"></p>
+    <p v-html="bugHtml"></p>
+    <!--  绑定属性  -->
+    <p>
+    <div v-bind:class="clazz" @click="changeStyle">这是属性绑定</div>
+    <div :class="clazz" @click="changeStyle">这是属性绑定</div>
+    </p>
+    <!--  js表达式  -->
+    <p>
+    <div :class="'color' + num">js表达式</div>
+    <div :class="'color' + num">{{'现在的class是：'+clazz}}</div>
+    </p>
+</div>
+</body>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                msg: 'null',
+                myHtml: '<span style="color: red">这是一段html代码</span>',
+                bugHtml: '<button onclick="alert(\'这是个bug\')">按钮</button>',
+                clazz: 'color1',
+                num: 1
+            }
+        },
+        methods: {
+            btn1() {
+                this.msg = 'btn1 被点击了'
+            },
+            btn2() {
+                this.msg = 'btn2 被点击了'
+            },
+            changeStyle() {
+                this.clazz = this.clazz === 'color1' ? 'color2' : 'color1'
+                this.num = this.num === 1 ? 2 : 1
+            }
+        }
+    })
+
+    // 注意，少使用v-html，有注入漏洞风险 (xss攻击)
+</script>
+</html>
