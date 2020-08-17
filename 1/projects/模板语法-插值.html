@@ -40,9 +40,15 @@
     <div :class="'color' + num">js表达式</div>
     <div :class="'color' + num">{{'现在的class是：'+clazz}}</div>
     </p>
+    <!--  双向绑定  -->
+    <p>
+    <div>{{inputValue}}</div>
+    <input v-model="inputValue"/>
+    </p>
 </div>
 </body>
 <script>
+    // 注意: 少使用v-html，有注入漏洞风险 (xss攻击)
     let app = new Vue({
         el: '#app',
         data() {
@@ -51,7 +57,8 @@
                 myHtml: '<span style="color: red">这是一段html代码</span>',
                 bugHtml: '<button onclick="alert(\'这是个bug\')">按钮</button>',
                 clazz: 'color1',
-                num: 1
+                num: 1,
+                inputValue: ''
             }
         },
         methods: {
@@ -67,7 +74,5 @@
             }
         }
     })
-
-    // 注意，少使用v-html，有注入漏洞风险 (xss攻击)
 </script>
 </html>

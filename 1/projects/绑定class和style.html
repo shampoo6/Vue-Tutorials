@@ -2,9 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .class1 {
+            background-color: coral;
+        }
+
+        .class2 {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-$END$
+<div id="app">
+    <!--  绑定class  -->
+    <div :class="classObj">绑定class</div>
+    <div>
+        <button @click="toggleBackground">开关背景色</button>
+        <button @click="toggleBold">开关字体加粗</button>
+    </div>
+    <!--  绑定style  -->
+    <div :style="styleObj">绑定style</div>
+    <div>
+        字体大小：<input v-model.number="fontSize"/>
+        <button @click="toggleBlock">显示/隐藏</button>
+    </div>
+</div>
 </body>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                classObj: {
+                    class1: true,
+                    class2: true
+                },
+                styleObj: {
+                    fontSize: '12px',
+                    display: 'block'
+                }
+            }
+        },
+        computed: {
+            fontSize: {
+                get() {
+                    let fontSize = this.styleObj.fontSize
+                    let result = fontSize.substring(0, fontSize.indexOf('px'));
+                    // console.log(result)
+                    return result
+                },
+                set(val) {
+                    this.styleObj.fontSize = val + 'px'
+                }
+            }
+        },
+        methods: {
+            toggleBackground() {
+                this.classObj.class1 = !this.classObj.class1
+            },
+            toggleBold() {
+                this.classObj.class2 = !this.classObj.class2
+            },
+            toggleBlock() {
+                this.styleObj.display = this.styleObj.display === 'none' ? 'block' : 'none'
+            }
+        }
+    })
+</script>
 </html>

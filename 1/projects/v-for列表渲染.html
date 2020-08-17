@@ -7,36 +7,59 @@
 </head>
 <body>
 <div id="app">
-    <div>个人信息</div>
-    <div>姓名：{{info.name}}</div>
-    <div v-show="info.sex==='male'">性别：男</div>
-    <div v-show="info.sex==='female'">性别：女</div>
-    <div>年龄：{{info.age}}</div>
-
-    <div>年龄评价：
-        <div v-if="info.age<=12">儿童</div>
-        <div v-else-if="info.age>12&&info.age<=29">青年</div>
-        <div v-else-if="info.age>29&&info.age<=59">中年</div>
-        <div v-else>老年</div>
-    </div>
+    <h3>用户信息列表</h3>
+    <table border>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>年龄</th>
+        </tr>
+        <!--  自定义元素名为el，索引为index  -->
+        <tr v-for="(el, index) in users" :key="el.name"> <!-- 一定要绑定key，绑定的值一定是个不会重复的值 -->
+            <!--  在v-for中间的标签，都可以访问el和index  -->
+            <td>{{index}}</td>
+            <td>{{el.name}}</td>
+            <td>{{el.sex}}</td>
+            <td>{{el.age}}</td>
+        </tr>
+    </table>
+    <!--  错误的修改方式  -->
+    <button @click="changeNumberOne">修改第一个元素</button>
 </div>
 </body>
 <script>
 
-    // v-show 和 v-if 的区别：
-    // v-show是控制的元素style的display样式
-    // v-if是直接控制元素是否被插入到指定位置
-    // v-show不管显不显示，都会在dom文档中存在
-    // v-if只有显示的才存在于dom文档中
+    // v-for 列表渲染
+    // 一定要绑定key，且必须是唯一值
 
     let app = new Vue({
         el: '#app',
         data() {
             return {
-                info: {
-                    name: '张三',
-                    age: 72,
-                    sex: 'female'
+                users: [
+                    {
+                        name: '张三',
+                        sex: '男',
+                        age: 12
+                    }, {
+                        name: '李四',
+                        sex: '女',
+                        age: 11
+                    }, {
+                        name: '王麻子',
+                        sex: '男',
+                        age: 13
+                    },
+                ]
+            }
+        },
+        methods: {
+            changeNumberOne() {
+                this.users[0] = {
+                    name: '张三2',
+                    sex: '男',
+                    age: 21
                 }
             }
         }

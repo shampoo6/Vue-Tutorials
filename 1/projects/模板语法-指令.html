@@ -16,42 +16,87 @@
 </head>
 <body>
 <div id="app">
-    <!-- 文本取值 -->
+    <!-- 缩写 -->
     <p>{{msg}}</p>
-    <!-- 单次取值 -->
-    <p v-once>{{msg}}</p>
     <p>
-        <button @click="btn1">btn1</button>
+        <button v-on:click="btn1">btn1</button>
     </p>
     <p>
         <button @click="btn2">btn2</button>
     </p>
-    <!-- 输出html -->
-    <p>{{myHtml}}</p>
-    <p v-html="myHtml"></p>
-    <p v-html="bugHtml"></p>
-    <!--  绑定属性  -->
+    <!-- 指令修饰符 -->
+    <!--  v-model 修饰符  -->
+
+    <!--  lazy 延迟更新  -->
     <p>
-    <div v-bind:class="clazz" @click="changeStyle">这是属性绑定</div>
-    <div :class="clazz" @click="changeStyle">这是属性绑定</div>
+    <div>{{msg2}}</div>
+    lazy 延迟更新 <input v-model.lazy="msg2"/><br/>
+    没有 lazy 立即更新 <input v-model="msg2"/>
     </p>
-    <!--  js表达式  -->
+    <!--  number 自动将内容转换成数字  -->
     <p>
-    <div :class="'color' + num">js表达式</div>
-    <div :class="'color' + num">{{'现在的class是：'+clazz}}</div>
+    <div>{{msg2}}</div>
+    number 修饰符<input v-model.number="num"/><br/>
+    没用number修饰符<input v-model="num2"/><br/>
+    <button @click="showNum">查看类型</button>
+    <button @click="showNum2">查看类型2</button>
+    </p>
+    <!--  .trim 自动过滤输入的首尾空格  -->
+    <p>
+    <p>没有自动去空格<input v-model="msg3"/></p>
+    <p>自动去空格<input v-model.trim="msg3"/></p>
+    <button @click="showMsg3">显示输入框内容</button>
+    </p>
+
+    <!--  事件修饰符  -->
+    <!--  .stop组织事件冒泡  -->
+    <p>
+        <!--  当子元素事件被触发后，该事件会被传递给父元素，这就像水泡往外冒一样，所以叫冒泡  -->
+    <div @click="divClick">
+        <button @click="buttonClick">点击冒泡</button>
+        <button @click.stop="buttonClick">阻止冒泡</button>
+    </div>
+    </p>
+    <!--  .prevent屏蔽默认事件  -->
+    <form action="/" @click="formClick">
+        <button @click="submit">提交</button>
+        <button @click.prevent="submit">prevent提交</button>
+        <button @click.prevent.stop="submit">prevent stop提交</button>
+    </form>
+    <!--  .once只触发一次  -->
+    <p>
+        <button @click="trigger">不只触发一次</button>
+        <button @click.once="trigger">只触发一次</button>
+    </p>
+    <!--  key事件  -->
+    <p>
+        <p>keydown<input v-model="inputValue1" @keydown.enter="showInput1"/></p>
+        <p>keyup<input v-model="inputValue1" @keyup.w="showInput1"/></p>
+        <p>keypress<input v-model="inputValue1" @keypress.space="showInput1"/></p>
+        <!--  控制按钮修饰  -->
+        <p>ctrl<input v-model="inputValue1" @keydown.ctrl.enter="showInput1"/></p>
+        <p>shift<input v-model="inputValue1" @keydown.shift.enter="showInput1"/></p>
+        <p>alt<input v-model="inputValue1" @keydown.alt.enter="showInput1"/></p>
     </p>
 </div>
 </body>
 <script>
+
+    // 使用"v-"前缀的特殊属性就是指令
+
     let app = new Vue({
         el: '#app',
         data() {
             return {
                 msg: 'null',
+                msg2: '',
+                msg3: '',
                 myHtml: '<span style="color: red">这是一段html代码</span>',
                 bugHtml: '<button onclick="alert(\'这是个bug\')">按钮</button>',
                 clazz: 'color1',
-                num: 1
+                num: 1,
+                num2: 1,
+                inputValue1: ''
             }
         },
         methods: {
@@ -64,10 +109,36 @@
             changeStyle() {
                 this.clazz = this.clazz === 'color1' ? 'color2' : 'color1'
                 this.num = this.num === 1 ? 2 : 1
+            },
+            showNum() {
+                alert(typeof this.num)
+            },
+            showNum2() {
+                alert(typeof this.num2)
+            },
+            showMsg3() {
+                console.info(this.msg3)
+            },
+            divClick() {
+                console.log('div被点击了')
+            },
+            buttonClick() {
+                console.log('button被点击了')
+            },
+            submit() {
+                console.log('提交按钮被点击了')
+            },
+            formClick() {
+                console.log('表单被点击了')
+            },
+            trigger() {
+                console.log('trigger被触发了')
+            },
+            showInput1() {
+                console.log(this.inputValue1)
             }
         }
     })
 
-    // 注意，少使用v-html，有注入漏洞风险 (xss攻击)
 </script>
 </html>

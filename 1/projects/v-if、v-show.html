@@ -2,9 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <script src="js/vue.js"></script>
 </head>
 <body>
-$END$
+<div id="app">
+    <div>个人信息</div>
+    <div>姓名：{{info.name}}</div>
+    <div v-show="info.sex==='male'">性别：男</div>
+    <div v-show="info.sex==='female'">性别：女</div>
+    <div>年龄：{{info.age}}</div>
+
+    <div>年龄评价：
+        <div v-if="info.age<=12">儿童</div>
+        <div v-else-if="info.age>12&&info.age<=29">青年</div>
+        <div v-else-if="info.age>29&&info.age<=59">中年</div>
+        <div v-else>老年</div>
+    </div>
+</div>
 </body>
+<script>
+
+    // v-show 和 v-if 的区别：
+    // v-show是控制的元素style的display样式
+    // v-if是直接控制元素是否被插入到指定位置
+    // v-show不管显不显示，都会在dom文档中存在
+    // v-if只有显示的才存在于dom文档中
+
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                info: {
+                    name: '张三',
+                    age: 72,
+                    sex: 'female'
+                }
+            }
+        }
+    })
+</script>
 </html>

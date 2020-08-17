@@ -2,9 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <script src="js/vue.js"></script>
 </head>
 <body>
-$END$
+<div id="app">
+    <form action="/">
+<!--        <button @click.prevent.stop="clickHandler">提交</button>-->
+<!--        <button @click="clickHandler">提交</button>-->
+<!--        <button @click="clickHandler()">提交</button>-->
+        <button @click="clickHandler($event)">提交</button>
+    </form>
+</div>
 </body>
+<script>
+
+    // v-for 列表渲染
+    // 一定要绑定key，且必须是唯一值
+
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {}
+        },
+        methods: {
+            clickHandler(e) {
+                console.log(e)
+                e.preventDefault()
+                e.stopPropagation()
+            }
+        }
+    })
+</script>
 </html>

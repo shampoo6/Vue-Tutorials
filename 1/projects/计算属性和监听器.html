@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html>
 
+<head>
+    <meta charset="utf-8"/>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <!--  计算属性  -->
+    <div>
+        美元<input v-model="dollar"/> ≈ {{rmb}} 人名币
+        <button @click="showComputed">显示计算属性</button>
+    </div>
+    <div>
+        <!--        人名币<input v-model="cny"/> ≈ {{jpy}} 日币<br/>-->
+        日币<input v-model.number="japan" @change="japanChange"/> ≈ {{cny}} 人名币
+    </div>
+</div>
 </body>
+<script>
+
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                dollar: 0,
+                cny: 0,
+                japan: 0,
+            }
+        },
+        computed: {
+            rmb() { // 计算属性总会返回一个结果
+                return this.dollar * 7
+            },
+            jpy: {
+                // 有访问器的计算属性
+                get() {
+                    return this.cny * 15
+                },
+                set(val) {
+                    this.cny = Number((val / 15).toFixed(2))
+                }
+            }
+        },
+        methods: {
+            showComputed() {
+                // 计算属性虽然定义的时候是个方法
+                // 调用的时候当作属性调用就可以了
+                console.log(this.rmb)
+            },
+            japanChange(val) {
+                this.jpy = this.japan
+            }
+        },
+        watch: {
+            // 给japan属性添加侦听器
+            japan(newValue, oldValue) {
+                console.log(newValue)
+                console.log(oldValue)
+            }
+        }
+    })
+</script>
+
 </html>

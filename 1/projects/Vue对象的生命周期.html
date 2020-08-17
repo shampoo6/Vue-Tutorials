@@ -2,9 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <script src="js/vue.js"></script>
 </head>
 <body>
-$END$
+<div id="app">
+    <p>{{msg}}</p>
+    <p><button @click="btn1">btn1</button></p>
+    <p><button @click="btn2">btn2</button></p>
+</div>
 </body>
+<script>
+
+    // 应该补充每个生命周期方法的作用
+
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                msg: 'null'
+            }
+        },
+        methods: {
+            btn1(){
+                this.msg = 'btn1 被点击了'
+            },
+            btn2(){
+                this.msg = 'btn2 被点击了'
+            }
+        },
+        beforeCreated() {
+            console.log('before created')
+        },
+        created() {
+            console.log('created')
+        },
+        beforeMount() {
+            console.log('before mounted')
+        },
+        mounted() {
+            console.log('mounted')
+        },
+        beforeUpdate() {
+            console.log('before update')
+        },
+        updated() {
+            console.log('updated')
+        },
+        beforeDestroy() {
+            console.log('before destroy')
+        },
+        destroyed() {
+            console.log('destroyed')
+        }
+    })
+</script>
 </html>
