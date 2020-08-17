@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-input :init="'初始化输入框'" :num="2233"
+              :default-value="config"
+              :default-method="myFn"></my-input>
+<!--              :defaultValue="config"-->
+<!--              :defaultMethod="myFn"></my-input>-->
+</div>
+</body>
+<script>
+
+    // 更多props定义可查看官网： https://cn.vuejs.org/v2/guide/components-props.html#Prop-%E9%AA%8C%E8%AF%81
+    // 注意在html中使用属性，用“-”短横线分割词汇
+
+    Vue.component('my-input', {
+        template: `<div><h5>我的input框</h5><input v-model="value" @change="changeHandler"/></div>`,
+        // props: ['init'], // 简单的声明prop
+        // props: { // 简单的声明prop数据类型
+        //     init: String,
+        //     num: Number
+        // },
+        props: {
+            init: String,
+            num: Number,
+            defaultValue: {
+                type: Object,
+                default: () => {
+                    return {
+                        msg: '这是默认值' // 给prop赋值默认值
+                    }
+                }
+            },
+            defaultMethod: {
+                type: Function,
+                default: () => {
+                    return () => {
+                        console.log('这是默认方法')
+                    }
+                }
+            }
+        },
+        mounted() {
+            this.value = this.init
+        },
+        data() {
+            return {
+                value: ''
+            }
+        },
+        methods: {
+            changeHandler() {
+                console.log(this.num)
+                console.log(this.defaultValue)
+                this.defaultMethod()
+            }
+        }
+    })
+
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                config: {
+                    msg: '替换默认值'
+                }
+            }
+        },
+        methods: {
+            myFn() {
+                console.log('替换默认方法')
+            }
+        }
+    })
+</script>
+</html>

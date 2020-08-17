@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-button @click.native="clickReceive"></my-button>
+    <my-button @click="clickReceive"></my-button>
+</div>
+</body>
+<script>
+
+    // 关于自定义组件的 v-model 双向绑定：
+    // https://cn.vuejs.org/v2/guide/components-custom-events.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%9A%84-v-model
+
+    Vue.component('my-button', {
+        template: `<button @click="clickHandler">按钮组件</button>`,
+        methods: {
+            clickHandler() {
+                // 发起自定义事件
+                this.$emit('click', '组件按钮事件被触发了')
+            }
+        }
+    })
+
+    new Vue({
+        el: '#app',
+        methods: {
+            clickReceive(msg) {
+                console.log(msg)
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/myInput.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-button></my-button>
+    <my-button></my-button>
+    <my-button></my-button>
+    <my-input></my-input>
+</div>
+</body>
+<script>
+    // 全局注册
+    Vue.component('my-button', {
+        template: `<button @click="clickHandler">这是我的按钮</button>`,
+        data() {
+            return {
+                count: 0
+            }
+        },
+        methods: {
+            clickHandler(e) {
+                alert('自定义按钮被点击了 ' + ++this.count + ' 次')
+            }
+        }
+    })
+
+    new Vue({
+        components: {'my-input': myInput},
+        el: '#app'
+    })
+</script>
+</html>

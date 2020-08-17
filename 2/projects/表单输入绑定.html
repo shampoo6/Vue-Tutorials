@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <!--  文本  -->
+    <p>
+    <h5>文本</h5>
+    <input v-model="text"/>
+    </p>
+    <!--  多行文本  -->
+    <p>
+    <h5>多行文本</h5>
+    <textarea v-model="textarea" rows="4"></textarea>
+    </p>
+    <!--  复选框  -->
+    <p>
+    <h5>复选框</h5>
+    <input id="lanqiu" type="checkbox" value="篮球" v-model="hobby"/><label for="lanqiu">篮球</label>
+    <input id="zuqiu" type="checkbox" value="足球" v-model="hobby"/><label for="zuqiu">足球</label>
+    <input id="golf" type="checkbox" value="高尔夫球" v-model="hobby"/><label for="golf">高尔夫球</label>
+    </p>
+    <!--  单选按钮  -->
+    <p>
+    <h5>单选按钮</h5>
+    <input id="male" type="radio" value="男" v-model="sex"/><label for="male">男</label>
+    <input id="female" type="radio" value="女" v-model="sex"/><label for="female">女</label>
+    <input id="othersex" type="radio" value="其他" v-model="sex"/><label for="othersex">其他</label>
+    </p>
+    <!--  选择框  -->
+    <p>
+    <h5>选择框</h5>
+    班级：
+    <select v-model="select">
+        <option value="1">一班</option>
+        <option value="2">二班</option>
+        <option value="3">三班</option>
+    </select>
+    </p>
+</div>
+</body>
+<script>
+
+    // 表单元素多用于创建用户可输入表单
+
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                text: '',
+                textarea: '',
+                hobby: [],
+                sex: '男',
+                select: '3'
+            }
+        },
+        methods: {
+        }
+    })
+</script>
+
+</html>
