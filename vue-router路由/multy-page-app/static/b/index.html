@@ -12,23 +12,28 @@
 </div>
 </body>
 <script>
-    const A = () => Promise.resolve({
-        template: '<div>这是A</div>'
+    const X = () => Promise.resolve({
+        template: '<div>这是X</div>'
     })
 
-    const B = () => Promise.resolve({
-        template: '<div>这是B</div>'
+    const Y = () => Promise.resolve({
+        template: '<div>这是Y</div>'
     })
 
     let router = new VueRouter({
+        // mode: 'history',
         routes: [
             {
-                path: '/a',
-                component: A
+                path: '/',
+                redirect: '/x'
             },
             {
-                path: '/b',
-                component: B
+                path: '/x',
+                component: X
+            },
+            {
+                path: '/y',
+                component: Y
             }
         ]
     })

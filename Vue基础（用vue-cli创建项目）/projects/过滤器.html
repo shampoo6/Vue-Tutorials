@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            {{new Date()|date-formater}}
+        </div>
+    </div>
+</body>
+<script>
+
+    // 全局过滤器
+    // Vue.filter('date-formater', (date)=>{
+    //     let year = date.getFullYear()
+    //     let month = date.getMonth() + 1
+    //     let day = date.getDate()
+    //     return `${year}-${month}-${day}`
+    // })
+
+    let app = new Vue({
+        el: '#app',
+        filters: { // 组件内声明过滤器
+            'date-formater': (date) => {
+                let year = date.getFullYear()
+                let month = date.getMonth() + 1
+                let day = date.getDate()
+                return `${year}-${month}-${day}`
+            }
+        }
+    })
+</script>
+
+</html>

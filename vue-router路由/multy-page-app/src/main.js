@@ -11,8 +11,9 @@ app.all('*', function (req, res, next) {
     next();
 })
 
-app.use('/a', express.static(path.join(__dirname, '../a')))
-app.use('/b', express.static(path.join(__dirname, '../b')))
+app.use('/', express.static(path.join(__dirname, '../static')))
+app.use('/a', express.static(path.join(__dirname, '../static/a')))
+app.use('/b', express.static(path.join(__dirname, '../static/b')))
 
 app.listen(1024, () => {
     console.log('server start')
