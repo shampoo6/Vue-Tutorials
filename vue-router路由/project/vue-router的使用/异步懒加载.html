@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <router-view></router-view>
+</div>
+</body>
+<script>
+    // 异步懒加载：当该页面没被访问的时候，该页面并未被浏览器加载，只有当被访问到时才会被加载
+    // 用于节约计算机资源，提高代码运行效率
+    // 注意：如果您使用的是 Babel，你将需要添加 syntax-dynamic-import 插件，才能使 Babel 可以正确地解析语法。
+
+    const Home = () => {
+        // Promise.resolve() 方法，会将不是thenable的对象转换成thenable的对象
+        // thenable: 指的是可以调用then()方法的对象
+        return Promise.resolve({
+            template: `<div>这是首页</div>`
+        })
+    }
+
+    const About = () => Promise.resolve({
+        template: `<div>这是about</div>`
+    })
+
+    let router = new VueRouter({
+        routes: [
+            {
+                path: '/',
+                component: Home
+            },
+            {
+                path: '/about',
+                component: About
+            }
+        ]
+    })
+
+    new Vue({
+        router
+    }).$mount('#app')
+</script>
+</html>

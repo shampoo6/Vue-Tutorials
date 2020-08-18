@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+    <script src="../js/welcome.js"></script>
+    <script src="../js/about.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--  必须要有路由出口，否则将不显示路由内容  -->
+    <router-view></router-view>
+</div>
+</body>
+<script>
+
+    // 主要介绍如何引用
+    // 路由参数 routes 如何构建
+    // router-view 路由视口
+    // router-link
+    // 用js调用前进和后退
+
+    Vue.use(VueRouter)
+
+    let router = new VueRouter({
+        routes: [
+            {
+                path: '/',
+                component: welcome
+            },
+            {
+                path: '/about',
+                component: about
+            }
+        ]
+    })
+
+    new Vue({
+        router
+    }).$mount('#app')
+</script>
+</html>

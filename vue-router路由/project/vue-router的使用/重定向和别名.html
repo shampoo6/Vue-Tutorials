@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <router-view></router-view>
+</div>
+</body>
+<script>
+    // 重定向：浏览器访问指定网址，指定网址要求浏览器重新访问另一个地址的过程，叫重定向
+    // 好比政府部门办事踢皮球
+
+    // 别名：可以使用别名进入完整path所指向的页面
+
+    // 重定向和别名的异同
+    // 相同：都能通过一个不是path指定的路径，跳到另一个页面
+    // 不同：重定向的url路径会变化，别名不会变化
+
+    const Home = {
+        template: `<div>这里是home首页</div>`
+    }
+
+    const Index = {
+        template: `<div>这里是/页</div>`
+    }
+
+    const About = {
+        template: `<div>这里是about页</div>`
+    }
+
+    let router = new VueRouter({
+        routes: [
+            {
+                path: '/',
+                // component: Index
+                redirect: '/home' // 使用重定向
+            },
+            {
+                path: '/home',
+                component: Home
+            },
+            {
+                path: '/about',
+                component: About,
+                alias: '/ab'
+            }
+        ]
+    })
+
+    new Vue({router}).$mount('#app')
+</script>
+</html>

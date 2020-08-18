@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <h4>视图default</h4>
+    <router-view></router-view>
+    <h4>视图a</h4>
+    <router-view name="a"></router-view>
+</div>
+</body>
+<script>
+
+    // 给router-view 添加 name属性
+
+    const Father = {
+        template: // 使用嵌套路由时，父组件中必须包含<router-view></router-view>路由视口
+            `<div>
+                <ul>
+                    <li><router-link to="/c1">child1</router-link></li>
+                    <li><router-link to="/c2">child2</router-link></li>
+                </ul>
+                <router-view></router-view>
+            </div>`,
+        mounted() {
+            let params = this.$route.params
+            this.user.id = params.id
+            this.user.name = params.name
+        },
+        data() {
+            return {
+                user: {
+                    id: '',
+                    name: ''
+                }
+            }
+        }
+    }
+
+    const Child1 = {
+        template: `<div>这里是child1</div>`
+    }
+    const Child2 = {
+        template: `<div>这里是child2</div>`
+    }
+
+    const A = {
+        template: `<div>这是A</div>`
+    }
+
+    let router = new VueRouter({
+        routes: [
+            {
+                path: '/',
+                components: { // 给不同名称的router-view赋值组件
+                    default: Father, // 这种使用命名视图和嵌套路由的混合用法，官方已经忽略了
+                    a: A            // 官方demo：https://jsfiddle.net/posva/22wgksa3/
+                }
+            },
+            {
+                path: '/father',
+                component: Father,
+                children: [
+                    {
+                        path: '/c1',
+                        component: Child1
+                    },
+                    {
+                        path: '/c2',
+                        component: Child2
+                    }
+                ]
+            }
+        ]
+    })
+
+    new Vue({router}).$mount('#app')
+</script>
+</html>

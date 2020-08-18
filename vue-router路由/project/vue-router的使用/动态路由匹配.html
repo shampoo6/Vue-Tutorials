@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/vue.js"></script>
+    <script src="../js/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <router-view></router-view>
+</div>
+</body>
+<script>
+
+    // 使用路由传参，通过this.$route.params获取路由参数
+
+    // 用处：直播间、商品详情页等，通常是个模板页面，对应不同数据套用不同内容
+
+    const User = {
+        template:
+            `<div>
+                <div>{{user.id}}</div>
+                <div>{{user.name}}</div>
+            </div>`,
+        mounted() {
+            let params = this.$route.params
+            this.user.id = params.id
+            this.user.name = params.name
+        },
+        data() {
+            return {
+                user: {
+                    id: '',
+                    name: ''
+                }
+            }
+        }
+    }
+
+    let router = new VueRouter({
+        routes: [
+            {path: '/id_is/:id/name_is/:name', component: User}
+        ]
+    })
+
+    new Vue({router}).$mount('#app')
+</script>
+</html>
