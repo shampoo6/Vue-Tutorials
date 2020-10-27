@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    // ES6
+    class People {
+        name = ''
+        age = 0
+        sex = ''
+
+        eat() {
+            console.log('吃东西')
+        }
+
+        sleep() {
+            console.log('睡觉')
+        }
+    }
+
+    // 类实例
+    let zhangSan = new People()
+    zhangSan.name = '张三'
+    zhangSan.sex = '男'
+    zhangSan.age = 12
+    console.log(zhangSan)
+    zhangSan.eat()
+    zhangSan.sleep()
+
+    // ES5
+    function Car() {
+        this.name = ''
+        this.price = ''
+        this.run = function () {
+            console.log('开车走了')
+        }
+        this.shout = function () {
+            console.log('巴巴叫')
+        }
+    }
+    let car = new Car()
+    car.name = '兰博基尼'
+    car.price = '四千万'
+    console.log(car)
+    car.run()
+    car.shout()
+</script>
+</html>

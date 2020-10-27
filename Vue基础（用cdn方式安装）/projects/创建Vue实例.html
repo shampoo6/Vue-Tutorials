@@ -1,48 +1,36 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="UTF-8">
+    <title>Title</title>
     <script src="js/vue.js"></script>
 </head>
-
 <body>
+<h1>{{msg}}</h1>
 <div id="app">
-    <!--访问属性-->
-    <p>{{msg}}</p>
-    <p>
-        <!--绑定事件-->
-        <button @click="btn1">btn1</button>
-    </p>
-    <p>
-        <button @click="btn2">btn2</button>
-    </p>
-    <p>
-        <button @click="btn3">btn3</button>
-    </p>
+    <!-- vue的模板内容必须写在 声明的根节点中 此处根节点是 id为app的div -->
+    <h1>{{msg}}</h1>
+    <h1>{{title}}</h1>
+    <!-- 使用v-on绑定事件 此处的click是事件的名称 btnClick是vue对象的methods中声明的方法 -->
+    <button v-on:click="btnClick">按钮</button>
 </div>
 </body>
 <script>
-    // 创建一个vue实例
-    let app = new Vue({
-        el: '#app', // 必须要指定vue需要渲染的元素，并且具备vue功能的标签都要写在该元素中才能生效
-        data() { // 声明数据
+    let vue = new Vue({
+        el: '#app', // 声明哪一个是vue模板的根节点，值是一个css选择器
+        data() { // 声明数据模型，注意：该data是一个函数，返回一个json对象
             return {
-                msg: '尚未选择' // 此处的数据是响应式的
+                msg: '这是一条信息', // 声明数据变量
+                title: '这是抬头'
             }
         },
-        methods: { // 声明方法
-            btn1() {
-                this.msg = 'btn1被点击了'
-            },
-            btn2() {
-                this.msg = 'btn2被点击了'
-            },
-            btn3() {
-                this.msg = 'btn3被点击了'
+        // 在methods中声明的是用户自定义的方法
+        methods: {
+            // 此处自定义的方法，可以在html模板中访问到
+            btnClick() {
+                alert('按钮被点击了')
             }
         }
     })
 </script>
-
 </html>

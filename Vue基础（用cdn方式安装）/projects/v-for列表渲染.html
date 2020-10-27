@@ -7,60 +7,84 @@
 </head>
 <body>
 <div id="app">
-    <h3>用户信息列表</h3>
-    <table border>
-        <tr>
-            <th>序号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>年龄</th>
-        </tr>
-        <!--  自定义元素名为el，索引为index  -->
-        <tr v-for="(el, index) in users" :key="el.name"> <!-- 一定要绑定key，绑定的值一定是个不会重复的值 -->
-            <!--  在v-for中间的标签，都可以访问el和index  -->
-            <td>{{index}}</td>
-            <td>{{el.name}}</td>
-            <td>{{el.sex}}</td>
-            <td>{{el.age}}</td>
-        </tr>
-    </table>
-    <!--  错误的修改方式  -->
-    <button @click="changeNumberOne">修改第一个元素</button>
+    <!-- v-for 循环渲染一个数组数据 -->
+    <!-- 以下例子中 -->
+    <!-- el代表：数组中的每个元素 -->
+    <!-- arr代表：data中的数组变量 -->
+    <div v-for="el in arr">
+        <!-- 在v-for内部，每一个元素el，可以当作是data中的数据进行直接访问 -->
+        <div>姓名：{{el.name}}</div>
+        <div>年龄：{{el.age}}</div>
+        <div>性别：{{el.sex}}</div>
+    </div>
+
+    <br/>
+
+    <!-- 此处 使用圆括号"()" 可以获取数组中的元素el，和该元素的下标index -->
+    <div v-for="(el, index) in arr">
+        <!-- 在v-for内部，每一个元素el，可以当作是data中的数据进行直接访问 -->
+        <div>序号：{{index}}</div>
+        <div>姓名：{{el.name}}</div>
+        <div>年龄：{{el.age}}<input v-model="el.age"/></div>
+        <div>性别：{{el.sex}}</div>
+    </div>
+
+    <br/>
+
+    <!-- 注意 -->
+    <!-- v-for中，尽量绑定key属性，key属性是一个唯一值 -->
+    <div v-for="(el, index) in arr" v-bind:key="el.id">
+        <div>序号：{{index}}</div>
+        <div>姓名：{{el.name}}</div>
+        <div>年龄：{{el.age}}<input v-model="el.age"/></div>
+        <div>性别：{{el.sex}}</div>
+    </div>
+
+    <button @click="modifyArr">修改数组</button>
 </div>
 </body>
 <script>
+    // v-for 做数组的循环渲染
 
-    // v-for 列表渲染
-    // 一定要绑定key，且必须是唯一值
-
-    let app = new Vue({
+    let vm = new Vue({
         el: '#app',
         data() {
             return {
-                users: [
+                title: '这是抬头',
+                arr: [
                     {
+                        id: 0,
                         name: '张三',
-                        sex: '男',
-                        age: 12
-                    }, {
-                        name: '李四',
-                        sex: '女',
-                        age: 11
-                    }, {
-                        name: '王麻子',
-                        sex: '男',
-                        age: 13
+                        age: 16,
+                        sex: '男'
                     },
+                    {
+                        id: 1,
+                        name: '李四',
+                        age: 16,
+                        sex: '女'
+                    },
+                    {
+                        id: 2,
+                        name: '王五',
+                        age: 18,
+                        sex: '男'
+                    }
                 ]
             }
         },
         methods: {
-            changeNumberOne() {
-                this.users[0] = {
-                    name: '张三2',
-                    sex: '男',
-                    age: 21
-                }
+            modifyArr() {
+                // this.arr[1] = {
+                //     id: 3,
+                //     name: '王麻子',
+                //     age: 20,
+                //     sex: '女'
+                // }
+                this.arr[1].id = 3
+                this.arr[1].name = '王麻子'
+                this.arr[1].age = 20
+                this.arr[1].sex = '女'
             }
         }
     })

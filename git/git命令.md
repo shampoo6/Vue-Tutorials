@@ -1,8 +1,8 @@
 ## 大纲
 #### 配置个人信息
 ```shell script
-git config --global user.name xxxx 
-git config --global user.email xxxxx@qq.com
+git config --global user.name "xxxx"
+git config --global user.email "xxxxx@qq.com"
 ```
 #### 创建仓库
 - 本地创建

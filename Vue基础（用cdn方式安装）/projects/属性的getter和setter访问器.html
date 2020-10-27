@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    let obj = {
+        a: 1,
+        aGetter: function () {
+            return this.a
+        },
+        aSetter: function (_a) {
+            this.a = _a
+        }
+    }
+
+    console.log(obj.aGetter())
+    obj.aSetter(2)
+    console.log(obj.aGetter())
+    // Object.defineProperty
+    Object.defineProperty(obj, 'name', {
+        get: () => {
+            return 'get: ' + this.name
+        },
+        set: (value) => {
+            this.name = 'yoyo ' + value
+        }
+    })
+    console.log(obj)
+    // console.log(obj.name)
+    // obj.name = '123'
+    // console.log(obj.name)
+
+</script>
+</html>

@@ -17,6 +17,9 @@ git分布式版本控制系统，由于分布式的原因（去中心化，不�
 - pull：拉取
 - push：推送
 
+#### 作用
+多人协作开发时用于代码管理
+
 #### 安装
 通过官网：```https://git-scm.com/```下载git客户端
 
@@ -26,3 +29,7 @@ git分布式版本控制系统，由于分布式的原因（去中心化，不�
 ```shell script
 git version 2.27.0.windows.1
 ```
+
+#### 线上git仓库
+- github: https://github.com/
+- gitee(码云): https://gitee.com/

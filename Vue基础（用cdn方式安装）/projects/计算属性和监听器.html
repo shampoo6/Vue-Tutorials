@@ -1,67 +1,53 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="UTF-8">
+    <title>Title</title>
     <script src="js/vue.js"></script>
 </head>
-
 <body>
 <div id="app">
-    <!--  计算属性  -->
+    <h3>计算属性如下：</h3>
     <div>
-        美元<input v-model="dollar"/> ≈ {{rmb}} 人名币
-        <button @click="showComputed">显示计算属性</button>
-    </div>
-    <div>
-        <!--        人名币<input v-model="cny"/> ≈ {{jpy}} 日币<br/>-->
-        日币<input v-model.number="japan" @change="japanChange"/> ≈ {{cny}} 人名币
+        <!-- 计算属性多用于单位换算 -->
+        <input v-model="cny"/> 人民币 ≈ {{dollar}} 漂亮元
     </div>
 </div>
 </body>
 <script>
-
-    let app = new Vue({
+    let vue = new Vue({
         el: '#app',
         data() {
             return {
-                dollar: 0,
-                cny: 0,
-                japan: 0,
+                cny: '0'
             }
         },
+        // 声明计算属性
         computed: {
-            rmb() { // 计算属性总会返回一个结果
-                return this.dollar * 7
-            },
-            jpy: {
-                // 有访问器的计算属性
-                get() {
-                    return this.cny * 15
-                },
-                set(val) {
-                    this.cny = Number((val / 15).toFixed(2))
+            // 计算属性本质就是一个取值的方法
+            dollar() {
+                let num = Number(this.cny)
+                // isNaN方法，判断参数是否不是数字类型，如果不是数字返回true，否则返回false
+                // isNaN全称：is not a number
+                if (isNaN(num)) {
+                    return '-1'
                 }
+                // toFixed函数是Number类型中的方法
+                // toFixed的作用是保留指定位数的小数
+                // toFixed返回值为字符串
+                return Number(num * 0.1484).toFixed(2)
             }
         },
-        methods: {
-            showComputed() {
-                // 计算属性虽然定义的时候是个方法
-                // 调用的时候当作属性调用就可以了
-                console.log(this.rmb)
-            },
-            japanChange(val) {
-                this.jpy = this.japan
-            }
-        },
+        // 声明监听器
         watch: {
-            // 给japan属性添加侦听器
-            japan(newValue, oldValue) {
-                console.log(newValue)
-                console.log(oldValue)
+            // 方法名必须和data中的变量一致
+            // 你要观察哪一个变量发生变化，就使用那一个变量的变量名
+            cny(newValue, oldValue) {
+                console.log('人民币的值发生了变化')
+                console.log(`旧值为：${oldValue}`)
+                console.log(`新值为：${newValue}`)
             }
         }
     })
 </script>
-
 </html>

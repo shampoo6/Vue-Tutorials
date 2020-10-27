@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 引入echarts -->
+    <script src="js/echarts.js"></script>
+</head>
+<body>
+echarts
+<!-- 声明echarts根节点，用于echarts绘制图表 -->
+<div id="my-chart" style="height: 400px"></div>
+<button>重置大小</button>
+</body>
+<script>
+    // 实例化echarts对象
+    let el = document.querySelector('#my-chart')
+    let myChart = echarts.init(el)
+
+    // 对echarts进行配置
+    // 指定图表的配置项和数据
+    let option = {
+        title: {
+            text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+            data: ['销量']
+        },
+        xAxis: {
+            data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        },
+        yAxis: {},
+        series: [{
+            name: '销量',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+        }]
+    }
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option)
+
+    let btn = document.querySelector('button')
+    btn.addEventListener('click', () => {
+        // 调用resize方法重置大小
+        myChart.resize()
+    })
+</script>
+</html>

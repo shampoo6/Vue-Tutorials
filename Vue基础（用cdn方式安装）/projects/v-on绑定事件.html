@@ -7,29 +7,49 @@
 </head>
 <body>
 <div id="app">
-    <form action="/">
-<!--        <button @click.prevent.stop="clickHandler">提交</button>-->
-<!--        <button @click="clickHandler">提交</button>-->
-<!--        <button @click="clickHandler()">提交</button>-->
-        <button @click="clickHandler($event)">提交</button>
-    </form>
+    <!-- 使用v-on绑定事件 -->
+    <!-- v-on: 后面的click是事件名称 -->
+    <!-- v-on:click= 后面的值是绑定的事件处理程序 -->
+    <!-- 基础写法，clickHandler后面不加括号 -->
+    <button v-on:click="clickHandler">点击事件</button>
+    <!-- 给事件处理程序传参的写法，在clickHandler后面加括号，并写入参数 -->
+    <!-- 这里的$event是vue的内置的事件对象 -->
+    <button v-on:click="clickHandler2(id, $event)">点击事件</button>
+
+    <!-- 绑定keypress -->
+    <button v-on:keypress="keypressHandler">keypress</button>
+    <!-- 绑定keydown -->
+    <button v-on:keydown="keydownHandler">keydown</button>
+    <!-- 绑定keyup -->
+    <button v-on:keyup="keyupHandler">keyup</button>
 </div>
 </body>
 <script>
-
-    // v-for 列表渲染
-    // 一定要绑定key，且必须是唯一值
-
-    let app = new Vue({
+    let vm = new Vue({
         el: '#app',
         data() {
-            return {}
+            return {
+                id: 1
+            }
         },
         methods: {
             clickHandler(e) {
                 console.log(e)
-                e.preventDefault()
-                e.stopPropagation()
+                console.log('clickHandler被点击了')
+            },
+            clickHandler2(id, e) {
+                console.log(id)
+                console.log(e)
+                console.log('clickHandler2被点击了')
+            },
+            keypressHandler() {
+                console.log('keypressHandler被调用了')
+            },
+            keydownHandler() {
+                console.log('keydownHandler被调用了')
+            },
+            keyupHandler(){
+                console.log('keyupHandler被调用了')
             }
         }
     })

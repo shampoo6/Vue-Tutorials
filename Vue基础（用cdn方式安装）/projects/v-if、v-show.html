@@ -7,37 +7,36 @@
 </head>
 <body>
 <div id="app">
-    <div>个人信息</div>
-    <div>姓名：{{info.name}}</div>
-    <div v-show="info.sex==='male'">性别：男</div>
-    <div v-show="info.sex==='female'">性别：女</div>
-    <div>年龄：{{info.age}}</div>
+    <!-- v-if的作用是：bool表达式为true时，渲染该节点到页面中 -->
+    <!-- v-if中填入一个bool表达式 -->
+    <h1>v-if</h1>
+    <div v-if="visible">{{text}}</div>
+    <button v-on:click="switchText">{{visible?'隐藏':'显示'}}</button>
 
-    <div>年龄评价：
-        <div v-if="info.age<=12">儿童</div>
-        <div v-else-if="info.age>12&&info.age<=29">青年</div>
-        <div v-else-if="info.age>29&&info.age<=59">中年</div>
-        <div v-else>老年</div>
-    </div>
+    <!-- v-show通过控制css样式来达到隐藏和显示节点的目的 -->
+    <!-- v-show中填入一个bool表达式 -->
+    <h1>v-show</h1>
+    <div v-show="visible2">{{text}}</div>
+    <button v-on:click="switchText2">{{visible2?'隐藏':'显示'}}</button>
 </div>
 </body>
 <script>
-
-    // v-show 和 v-if 的区别：
-    // v-show是控制的元素style的display样式
-    // v-if是直接控制元素是否被插入到指定位置
-    // v-show不管显不显示，都会在dom文档中存在
-    // v-if只有显示的才存在于dom文档中
-
-    let app = new Vue({
+    let vm = new Vue({
         el: '#app',
         data() {
             return {
-                info: {
-                    name: '张三',
-                    age: 72,
-                    sex: 'female'
-                }
+                visible: true, // 定义一个指示是否显示的变量
+                visible2: true,
+                text: '这是一段文本',
+                text2: '这是一段文本2'
+            }
+        },
+        methods: {
+            switchText() {
+                this.visible = !this.visible
+            },
+            switchText2() {
+                this.visible2 = !this.visible2
             }
         }
     })

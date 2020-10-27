@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    // ES6 语法
+    class Bird {
+        name
+        // 构造器 用于构造实例对象，当使用new关键字时，会调用构造函数
+        constructor(name) {
+            this.name = name
+        }
+        fly() {
+            console.log('鸟会飞')
+        }
+    }
+
+    let bird = new Bird('这是鸟')
+    console.log(bird)
+
+    // 鸭子继承父类的鸟
+    // 继承可以获取父类的属性和方法
+    class YaZi extends Bird {
+        constructor(name) {
+            // super关键字，用于调用父类的属性或方法
+            // 直接在super后面跟上圆括号“()”代表调用父类的构造函数
+            super(name)
+        }
+    }
+
+    let yaZi = new YaZi('鸭子')
+    console.log(yaZi.name)
+    yaZi.fly()
+
+
+    // 如果换成es5
+    // let yaZi2 = new YaZi('鸭子2')
+    // yaZi.__proto__ = new Bird()
+
+    // ES5 语法
+    function Car() {
+        this.name = '车'
+        this.run = function () {
+            console.log('车在跑')
+        }
+    }
+
+    function PickCar() {
+        // 子类可以修改父类的行为或属性
+        this.run = function () {
+            console.log('皮卡在跑')
+        }
+    }
+
+    // 设置以后就会具备父级的属性和行为
+    PickCar.prototype = new Car()
+    let pickCar = new PickCar()
+    console.log(pickCar.name)
+    pickCar.run()
+
+    // __proto__ 和 prototype 的区别：
+    // __proto__ 用于给类实例 指定原型
+    // prototype 用于给类 指定原型
+
+</script>
+</html>

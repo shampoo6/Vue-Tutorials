@@ -6,71 +6,75 @@
     <script src="js/vue.js"></script>
     <style>
         .color1 {
-            background-color: crimson;
+            color: #59fb00
         }
 
         .color2 {
-            background-color: aqua;
+            color: #2683ff
         }
     </style>
 </head>
 <body>
 <div id="app">
     <!-- 文本取值 -->
-    <p>{{msg}}</p>
+    <h3>{{text}}</h3>
+    <!-- 对数字，对象和数组的显示 -->
+    <h3>{{num}}</h3>
+    <h3>{{obj}}</h3>
+    <h3>{{arr}}</h3>
     <!-- 单次取值 -->
-    <p v-once>{{msg}}</p>
-    <p>
-        <button @click="btn1">btn1</button>
-    </p>
-    <p>
-        <button @click="btn2">btn2</button>
-    </p>
+    <!-- 单次取值之后，该值将不会再进行改变了 -->
+    <h3 v-once>{{text}}</h3>
+    <button v-on:click="changeText">修改文本</button>
     <!-- 输出html -->
-    <p>{{myHtml}}</p>
-    <p v-html="myHtml"></p>
-    <p v-html="bugHtml"></p>
-    <!--  绑定属性  -->
-    <p>
-    <div v-bind:class="clazz" @click="changeStyle">这是属性绑定</div>
-    <div :class="clazz" @click="changeStyle">这是属性绑定</div>
-    </p>
-    <!--  js表达式  -->
-    <p>
-    <div :class="'color' + num">js表达式</div>
-    <div :class="'color' + num">{{'现在的class是：'+clazz}}</div>
-    </p>
-    <!--  双向绑定  -->
-    <p>
-    <div>{{inputValue}}</div>
-    <input v-model="inputValue"/>
-    </p>
+    <!-- 尽量不要使用v-html -->
+    <div v-html="myHtml"></div>
+    <!-- 绑定属性 -->
+    <div>
+        <div v-bind:class="c1">这是color1</div>
+        <div v-bind:class="c2">这是color2</div>
+    </div>
+    <!-- 绑定属性时，可以运行js表达式 -->
+    <div>
+        <div v-bind:class="'color'+num1">这是color1</div>
+        <div v-bind:class="'color'+num2">这是color2</div>
+    </div>
+    <!-- 双向绑定 -->
+    <form>
+        <div>{{inputValue}}</div>
+        <!-- 使用v-model进行双向绑定 -->
+        <input v-model="inputValue"/>
+        <button v-on:click="changeInputValue">改变inputValue</button>
+    </form>
 </div>
 </body>
 <script>
-    // 注意: 少使用v-html，有注入漏洞风险 (xss攻击)
-    let app = new Vue({
+    let vue = new Vue({
         el: '#app',
         data() {
             return {
-                msg: 'null',
-                myHtml: '<span style="color: red">这是一段html代码</span>',
-                bugHtml: '<button onclick="alert(\'这是个bug\')">按钮</button>',
-                clazz: 'color1',
-                num: 1,
+                text: '这是一段文本',
+                num: 0,
+                obj: {a: 1, b: 2},
+                arr: [1, 2, 3],
+                myHtml: `<div>中国<span style="color: red">万岁</span></div>`,
+                // myHtml: `<img src=x onerror="vue.$destroy()"/>`, // 利用xss漏洞进行网页攻击
+                // xss 攻击，简单理解就是：黑客找到页面中能够执行js代码的地方，注入一段js代码并执行
+                c1: 'color1',
+                c2: 'color2',
+                num1: 1,
+                num2: 2,
                 inputValue: ''
             }
         },
         methods: {
-            btn1() {
-                this.msg = 'btn1 被点击了'
+            changeText() {
+                // 注意，修改vue对象数据模型时，要使用this关键字
+                this.text = '文本发生了变化'
             },
-            btn2() {
-                this.msg = 'btn2 被点击了'
-            },
-            changeStyle() {
-                this.clazz = this.clazz === 'color1' ? 'color2' : 'color1'
-                this.num = this.num === 1 ? 2 : 1
+            changeInputValue(e) {
+                e.preventDefault()
+                this.inputValue = 'inputValue通过js代码发生了变化'
             }
         }
     })

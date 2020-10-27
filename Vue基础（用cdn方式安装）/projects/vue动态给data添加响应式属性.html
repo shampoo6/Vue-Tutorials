@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div v-for="item in arr">{{item.num}}</div>
+    <input v-model="arr[0].num"/>
+    <button @click="changeArr">修改数组</button>
+</div>
+</body>
+<script>
+    let vue = new Vue({
+        el: '#app',
+        data() {
+            return {
+                arr: [
+                    {
+                        num: 1
+                    },
+                    {
+                        num: 2
+                    },
+                    {
+                        num: 3
+                    },
+                ]
+            }
+        },
+        methods: {
+            changeArr() {
+                this.arr[0] = {num: 5}
+                // 拷贝新的数组
+                let _arr = []
+                this.arr.forEach(el => {
+                    _arr.push({num: el.num})
+                })
+                console.log(_arr)
+                // 通过Vue.set动态添加响应式属性
+                // 第一个参数：要绑定属性的vue对象
+                // 第二个参数：属性名，必须是生明存在的属性名
+                // 第三个参数：绑定的值
+                Vue.set(this, 'arr', _arr)
+                // Vue.set(this, 'arr', this.arr)
+            }
+        }
+    })
+</script>
+</html>

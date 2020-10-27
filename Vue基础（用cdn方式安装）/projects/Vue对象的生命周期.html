@@ -7,53 +7,78 @@
 </head>
 <body>
 <div id="app">
-    <p>{{msg}}</p>
-    <p><button @click="btn1">btn1</button></p>
-    <p><button @click="btn2">btn2</button></p>
+    <h1>{{title}}</h1>
+    <button v-on:click="modifyTitle">修改title</button>
+    <button v-on:click="modifyTitle2">修改title2</button>
+    <button v-on:click="destroy">销毁</button>
 </div>
 </body>
 <script>
-
-    // 应该补充每个生命周期方法的作用
-
-    let app = new Vue({
+    let vue = new Vue({
         el: '#app',
         data() {
             return {
-                msg: 'null'
+                title: 'title'
             }
         },
         methods: {
-            btn1(){
-                this.msg = 'btn1 被点击了'
+            modifyTitle() {
+                this.title = '中文的title'
             },
-            btn2(){
-                this.msg = 'btn2 被点击了'
+            modifyTitle2() {
+                this.title = '中文的title2'
+            },
+            destroy() {
+                // 调用销毁方法
+                this.$destroy()
             }
         },
-        beforeCreated() {
-            console.log('before created')
+        // 声明周期函数放在vue对象中，当vue的对应阶段被调用时，会触发声明周期函数
+
+        // 重点多用的声明周期函数有：created，mounted，beforeDestroy
+        // created: 多用于页面初始化完以后，配合this.$nextTick()方法，绑定元素事件
+        // mounted: 多用于通过axios网络请求初始化页面参数
+        // beforeDestroy: 多用于解绑页面的元素事件
+
+        // 创建vue对象前
+        beforeCreate() {
+            console.log('beforeCreate 被调用了')
         },
+        // 创建完成
         created() {
-            console.log('created')
+            this.$nextTick(() => {
+                // 进行页面元素事件绑定
+                let button = document.createElement('button')
+                button.addEventListener('click', () => {
+                    console.log('动态添加html元素，并绑定元素事件的过程，多发生在created生命周期中')
+                })
+                document.body.appendChild(button)
+            })
+            console.log('created 被调用了')
         },
+        // 挂载数据前
         beforeMount() {
-            console.log('before mounted')
+            console.log('beforeMount 被调用了')
         },
+        // 挂载数据完成
         mounted() {
-            console.log('mounted')
+            console.log('mounted 被调用了')
         },
+        // 更新页面前
         beforeUpdate() {
-            console.log('before update')
+            console.log('beforeUpdate 被调用了')
         },
+        // 更新页面完成
         updated() {
-            console.log('updated')
+            console.log('updated 被调用了')
         },
+        // 销毁前
         beforeDestroy() {
-            console.log('before destroy')
+            console.log('beforeDestroy 被调用了')
         },
+        // 销毁完成
         destroyed() {
-            console.log('destroyed')
+            console.log('destroyed 被调用了')
         }
     })
 </script>
