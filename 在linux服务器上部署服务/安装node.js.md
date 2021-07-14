@@ -24,3 +24,15 @@ ln -s /opt/node/node-v14.0.0-linux-x64/bin/npx /usr/local/bin/
 node -v
 # 输出 ===> v14.0.0
 ```
+
+### 使用包管理器yum进行安装
+在网络允许的情况下，可以使用 centos 系统的软件包管理工具进行安装，方法如下：
+
+```
+# 更新包管理工具
+yum update
+# 给系统添加NodeSource代码仓库的地址，其中 setup_10.x 可以根据版本号换成 setup_14.x 或更高版本
+curl –sL https://rpm.nodesource.com/setup_10.x | sudo bash -
+# 安装 nodejs
+yum install –y nodejs
+```
