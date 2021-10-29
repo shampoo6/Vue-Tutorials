@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #ffe33c;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    <div v-if="toggle" class="box">
+        <h1>hello world</h1>
+        <h1>hello world</h1>
+        <h1>hello world</h1>
+    </div>
+
+    <!-- template 标签的作用是充当html模板的根节点
+        且 template 标签最终不会被渲染到页面上
+     -->
+    <template v-if="toggle" class="box">
+        <h1>hello world</h1>
+        <h1>hello world</h1>
+        <h1>hello world</h1>
+    </template>
+
+</div>
+
+</body>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                toggle: false
+            }
+        }
+    })
+
+</script>
+</html>

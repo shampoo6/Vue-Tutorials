@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src=""></script>
+</head>
+<body>
+
+</body>
+<!-- es6 模块化语法 必须使用服务器的方式访问页面
+ 若使用文件的方式打开该html文件的话 页面将报错
+ -->
+
+<!-- 要使用 es6 模块的话 再script标签上使用 type="module" -->
+<script type="module" src="js/module1.js"></script>
+<script type="module" src="js/module2.js"></script>
+<!-- 导入模块的 script 标签上也要写上 type="module" -->
+<script type="module">
+    // 使用 import something from somebody 的语法来导入内容
+    // as 关键字 可以将导入的变量名 作为另一个名称使用
+
+    // 翻译出来就是：将obj当作zbj使用
+    // import { something } from 'path'
+    // 该导入方式可以导入模块中的指定内容
+    import {obj as zbj} from './js/module1.js'
+    import {obj, txt} from './js/module2.js'
+
+    // 翻译下句话为：将module1中所有内容导入并当作m1使用
+    import * as m1 from './js/module1.js'
+
+    // 只有使用 export default 导出的模块才能使用一下导入语句
+    // 此处的 m2 是声明的一个变量 用来存放导入的内容
+    import m2 from './js/module2.js'
+
+    // 可以不赋值的导入一个模块
+    // 此种导入方式是为了执行这个模块的代码
+    import './js/module3.js'
+
+    console.log(zbj)
+    console.log(obj)
+    console.log(txt)
+
+    console.log(m1)
+    console.log(m1.obj)
+    console.log(m1.txt)
+    console.log(m1.z)
+
+    console.log(m2)
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>
+        <!-- 子组件上使用 v-model 进行双向绑定 -->
+        <form-item v-model="name" label="姓名"></form-item>
+        <form-item v-model="desc" label="简介"></form-item>
+        <div>{{name}}</div>
+        <div>{{desc}}</div>
+    </div>
+</div>
+</body>
+<script>
+    // 表单项组件
+    const formItem = {
+        /* 模板的输入框中 使用 :value 绑定value的值
+        * @input 绑定输入事件
+        *  */
+        template: `
+        <div>
+            <label>{{label}}: <input :value="value" @input="inputHandler" /></label>
+        </div>
+        `,
+        props: {
+            label: String,
+            value: String // 声明一个名为 value 的 props 用于父组件中绑定的属性指
+        },
+        methods: {
+            inputHandler(ev) {
+                // 触发输入事件
+                // 将输入内容通过 $emit 发送一个 input 事件给父组件
+                this.$emit('input', ev.target.value)
+            }
+        }
+    }
+
+    new Vue({
+        el: '#app',
+        components: {formItem},
+        data() {
+            return {
+                name: '',
+                desc: ''
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!-- 给子组件命名 -->
+    <stu ref="myStu"></stu>
+    <!-- 使用ref给元素命名 -->
+    <button ref="modifyBtn" @click="modifyStudent">修改student</button>
+    <button @click="btnClick">通过代码点击修改按钮</button>
+</div>
+</body>
+<script>
+    // ref 是vue.js的一个指令，作用是给元素（包括html标签和vue组件）打标记
+    // 然后可以在vue对象中获取指定的元素
+
+
+    const student = {
+        template: `
+            <div>
+                {{name}} {{sex}} {{age}}
+            </div>
+        `,
+        data() {
+            return {
+                name: '张三',
+                sex: 'male',
+                age: 15
+            }
+        },
+        methods: {
+            getStudentInfo() {
+                return {
+                    ...this.$data
+                }
+            }
+        }
+    }
+
+    new Vue({
+        el: '#app',
+        components: {
+            stu: student
+        },
+        methods: {
+            modifyStudent() {
+                console.log('modify student be clicked')
+                // 获取stu组件对象
+                let stu = this.$refs.myStu
+                console.log(stu)
+                // 获取组件对象后就可以使用组件的属性和函数
+                console.log(stu.name)
+                console.log(stu.sex)
+                console.log(stu.age)
+                console.log(stu.getStudentInfo())
+            },
+            btnClick() {
+                // 获取modifyBtn按钮
+                // console.log(this.$refs)
+                console.log(this.$refs.modifyBtn)
+                // 触发按钮的点击事件
+                this.$refs.modifyBtn.click()
+            }
+        }
+    })
+</script>
+</html>
