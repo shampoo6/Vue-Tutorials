@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 指令修饰符 -->
+        <!--  v-model 修饰符  -->
+
+        <!--  lazy 延迟更新  -->
+        <p>
+        <div>{{msg2}}</div>
+        lazy 延迟更新 <input v-model.lazy="msg2" /><br />
+        没有 lazy 立即更新 <input v-model="msg2" />
+        </p>
+        <!--  number 自动将内容转换成数字  -->
+        <p>
+        <div>{{msg2}}</div>
+        number 修饰符<input v-model.number="num" /><br />
+        没用number修饰符<input v-model="num2" /><br />
+        <button @click="showNum">查看类型</button>
+        <button @click="showNum2">查看类型2</button>
+        </p>
+        <!--  .trim 自动过滤输入的首尾空格  -->
+        <p>
+        <p>没有自动去空格<input v-model="msg3" /></p>
+        <p>自动去空格<input v-model.trim="msg3" /></p>
+        <button @click="showMsg3">显示输入框内容</button>
+        </p>
+
+        <!--  事件修饰符  -->
+        <!--  .stop组织事件冒泡  -->
+        <p>
+            <!--  当子元素事件被触发后，该事件会被传递给父元素，这就像水泡往外冒一样，所以叫冒泡  -->
+        <div @click="divClick">
+            <button @click="buttonClick">点击冒泡</button>
+            <button @click.stop="buttonClick">阻止冒泡</button>
+        </div>
+        </p>
+        <!--  .prevent屏蔽默认事件  -->
+        <form action="/" @click="formClick">
+            <button @click="submit">提交</button>
+            <button @click.prevent="submit">prevent提交</button>
+            <button @click.prevent.stop="submit">prevent stop提交</button>
+        </form>
+        <!--  .once只触发一次  -->
+        <p>
+            <button @click="trigger">不只触发一次</button>
+            <button @click.once="trigger">只触发一次</button>
+        </p>
+
+        <!--  .native修饰符 将事件处理程序绑定到自定义组件内的原生html标签上  -->
+
+        <br />
+
+        <!-- 以下是按键修饰符 -->
+        <!-- 按键修饰符，只能修饰按键相关事件 -->
+        <!-- 修饰符为字母时的效果是：对应字母按键被点击时，才会触发按键事件 -->
+        <button @keyup.w="keyupHandler">按键修饰符</button>
+        <!-- 除了字母修饰意外，还有一些功能键，如下 -->
+        <!--.enter
+    .tab
+    .delete (捕获“删除”和“退格”键)
+    .esc
+    .space
+    .up
+    .down
+    .left
+    .right-->
+        <button @keyup.enter="keyupHandler2">按键修饰符2</button>
+
+        <br />
+        <br />
+
+        <!--系统修饰符-->
+        <!--.ctrl
+    .alt
+    .shift
+    .meta-->
+        <!-- meta windows系统代表的是windows键，mac系统中代表command键 -->
+        <button @keydown.ctrl="systemKeyHandler">系统修饰符</button>
+
+        <!-- exact修饰符用于修饰系统修饰符 -->
+        <!-- 加入exact修饰符后，必须精准输入组合键，事件才能触发 -->
+        <button @keydown.shift.p.exact="systemKeyHandler">系统修饰符</button>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        methods: {
+            submit(e) {
+                console.log('submit 被调用了')
+            },
+            submit2() {
+                console.log('submit2 被调用了')
+            },
+            keyupHandler() {
+                console.log('keyupHandler 被调用了')
+            },
+            keyupHandler2() {
+                console.log('keyupHandler2 被调用了')
+            },
+            systemKeyHandler() {
+                console.log('systemKeyHandler 被调用了')
+            }
+        }
+    })
+</script>
+
+</html>

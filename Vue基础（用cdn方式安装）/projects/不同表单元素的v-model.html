@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+<div id="app">
+    <div class="container p-3">
+        <div class="card p-3">
+            <form>
+                <div class="d-flex">
+                    <label class="col-3 form-label d-flex align-items-center m-0">姓名</label>
+                    <input class="col form-control" v-model="form.name"/>
+                </div>
+                <div class="d-flex">
+                    <label class="col-3 form-label d-flex align-items-center m-0">性别</label>
+                    <div class="col">
+                        <div class="form-check-inline">
+                            <!-- 使用v-model双向绑定radio单选或多选时，只要将同一组的选项通过v-model绑定到同一个属性上即可 -->
+                            <input v-model="form.sex" id="sex-male" class="form-check-input" type="radio" value="male"/>
+                            <label for="sex-male" class="form-check-label">男</label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input v-model="form.sex" id="sex-female" class="form-check-input" type="radio"
+                                   value="female"/>
+                            <label for="sex-female" class="form-check-label">女</label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input v-model="form.sex" id="sex-other" class="form-check-input" type="radio"
+                                   value="other"/>
+                            <label for="sex-other" class="form-check-label">其他</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <label class="col-3 form-label d-flex align-items-center m-0">年龄</label>
+                    <input class="col form-control" v-model.number="form.age" type="number"/>
+                </div>
+                <div class="d-flex">
+                    <label class="col-3 form-label d-flex align-items-center m-0">班级</label>
+                    <select class="col form-select" v-model="form.clazz">
+                        <option value="" disabled>请选择</option>
+                        <option value="1班">1班</option>
+                        <option value="2班">2班</option>
+                        <option value="3班">3班</option>
+                    </select>
+                </div>
+                <div class="d-flex">
+                    <label class="col-3 form-label d-flex align-items-center m-0">爱好</label>
+                    <div class="col">
+                        <div class="form-check-inline">
+                            <!-- 使用v-model双向绑定radio单选或多选时，只要将同一组的选项通过v-model绑定到同一个属性上即可 -->
+                            <input v-model="form.hobbies" id="h-sing" class="form-check-input" type="checkbox" value="sing"/>
+                            <label for="h-sing" class="form-check-label">唱歌</label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input v-model="form.hobbies" id="h-dance" class="form-check-input" type="checkbox"
+                                   value="dance"/>
+                            <label for="h-dance" class="form-check-label">跳舞</label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input v-model="form.hobbies" id="h-paint" class="form-check-input" type="checkbox"
+                                   value="paint"/>
+                            <label for="h-paint" class="form-check-label">绘画</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <label class="col-3 form-label d-flex align-items-center m-0">简介</label>
+                    <textarea class="col form-control" v-model="form.desc" rows="4"></textarea>
+                </div>
+                <div>
+                    <button v-on:click.stop.prevent="submit" class="btn btn-primary w-100">提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    let stu = {
+        name: '姓名',
+        sex: '性别', // radio
+        age: '年龄',
+        clazz: '班级', // 设用 select
+        hobbies: '爱好', // checkbox
+        desc: '简介' // textarea
+    }
+
+    const vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                form: {
+                    name: '',
+                    sex: 'other',
+                    age: 0,
+                    clazz: '',
+                    hobbies: [],
+                    desc: ''
+                }
+            }
+        },
+        methods: {
+            submit() {
+                console.log(this.form)
+            }
+        }
+    })
+</script>
+</html>

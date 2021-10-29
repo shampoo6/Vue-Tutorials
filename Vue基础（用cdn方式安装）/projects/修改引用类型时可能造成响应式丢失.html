@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{obj.name}}</div>
+        <div>{{obj.sex}}</div>
+        <div><input v-model="sex" /><button @click="setSex">set sex</button></div>
+
+        <div v-for="name in arr" :key="name.toString()">
+            {{name}}
+        </div>
+        <button @click="setArr">修改数组</button>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                sex: '',
+                obj: {
+                    name: '张三',
+                    sex: undefined // 提前设置未赋值的响应式属性
+                },
+                arr: [
+                    '赵', '钱', '孙', '李', { name: '王', toString() { return this.name } }
+                ]
+            }
+        },
+        methods: {
+            setSex() {
+                // // 给对象添加属性
+                // this.obj.sex = this.sex
+                // // 新增的属性并不具备响应式（新属性不存在getter和setter）
+                // // 可以使用强制更新刷新页面
+                // this.$forceUpdate() // 强制更新页面
+
+
+                if (this.obj.sex === undefined) {
+                    // 给对象添加响应式属性
+                    // 第一个参数：要添加响应式属性的对象
+                    // 第二个参数：要添加的属性名
+                    // 第三个参数：添加时属性的值
+                    // Vue.set(this.obj, 'sex', this.sex) // 类型的静态方法
+                    this.$set(this.obj, 'sex', this.sex) // 实例方法
+
+
+                    // 一般来说，不推荐动态添加响应式属性
+                    // 若某个属性一开始不存在的话，请在vue对象的data中提前声明为undefined
+                } else {
+                    this.obj.sex = this.sex
+                }
+            },
+            setArr() {
+                // 方法一：直接修改数组成员
+                // this.arr[0] = 'hello'
+                // this.$forceUpdate()
+
+                // 方法二：推荐大家使用数组的函数来修改数组
+                // 这样的修改是响应式的
+                this.arr.splice(0, 1, 'hello')
+
+                // 注意：若要修改的数组成员是对象的话，请千万不要直接赋值一个新的对象，因为他不是响应式的
+                // 例如：this.arr[4] = {name: 'world', toString(){return this.name}}
+            }
+        }
+    })
+
+
+    // 结论：
+    // 1. 不要使用 Vue.set 动态添加响应式属性，应该在 data 函数中提前声明好响应式属性
+    // 2. 修改 data 的数组属性时，通通使用数组函数来修改就一定不会出问题
+</script>
+
+</html>

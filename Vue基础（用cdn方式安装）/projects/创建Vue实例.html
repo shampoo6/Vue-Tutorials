@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="js/vue.js"></script>
 </head>
+
 <body>
-<h1>{{msg}}</h1>
-<div id="app">
-    <!-- vue的模板内容必须写在 声明的根节点中 此处根节点是 id为app的div -->
     <h1>{{msg}}</h1>
-    <h1>{{title}}</h1>
-    <!-- 使用v-on绑定事件 此处的click是事件的名称 btnClick是vue对象的methods中声明的方法 -->
-    <button v-on:click="btnClick">按钮</button>
-</div>
+    <div id="app">
+        <!-- vue的模板内容必须写在 声明的根节点中 此处根节点是 id为app的div -->
+        <h1>{{msg}}</h1>
+        <h1>{{title}}</h1>
+        <!-- 使用v-on绑定事件 此处的click是事件的名称 btnClick是vue对象的methods中声明的方法 -->
+        <button v-on:click="btnClick">按钮</button>
+    </div>
+
+    <div id="app2"></div>
 </body>
 <script>
     let vue = new Vue({
@@ -32,5 +36,27 @@
             }
         }
     })
+
+
+    // 也可以使用 render 函数 或 template 属性 来规定vue对象的html模板
+    let vue2 = new Vue({
+        // template 属性用于定义 vue 对象的模板
+        template: '<h1>{{text}}</h1>',
+        data(){
+            return {
+                text: 'hello app2'
+            }
+        }
+    }).$mount('#app2')
+
+
+    console.log(vue.$children) // vue对象的子组件
+    console.log(vue.$el) // vue 对象对应的 html 文档
+    console.log(vue.$parent) // 父组件
+    // 所有声明在data中的属性或methods中的函数都可以在vue对象中直接访问
+    console.log(vue.msg);
+    console.log(vue.btnClick);
+    console.log(vue.$data); // 真实的数据存放在$data中
 </script>
+
 </html>

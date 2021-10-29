@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <!-- 工具栏 -->
+    <div>
+        <button @click="openAddForm">添加</button>
+    </div>
+    <!-- 表格 -->
+    <div>
+        <table border>
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>性别</th>
+                <th>国家</th>
+                <th>简介</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(book, index) in books" :key="book.id">
+                <td>{{book.id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.sex === 'male'?
+                    '男':
+                    book.sex === 'female'?
+                    '女': '其他'
+                    }}
+                </td>
+                <td>{{book.country === 'CN'?
+                    '中国':
+                    book.country === 'US'?
+                    '美国':'英国'
+                    }}
+                </td>
+                <td>{{book.desc}}</td>
+                <td>
+                    <button @click="openEditForm(book.id)">编辑</button>
+                    <button @click="remove(book.id)">删除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- 数据表单 -->
+
+    <!-- 添加数据用的表单 -->
+    <!-- 使用 v-show 和一个bool值来控制页面元素的显示和隐藏 -->
+    <div v-show="addFormVisible">
+        <h1>添加图书</h1>
+        <form id="addForm">
+            <div>
+                <label>书名<input name="name" v-model="addForm.name"/></label>
+            </div>
+            <div>
+                <label>作者<input name="author" v-model="addForm.author"/></label>
+            </div>
+            <div>
+                性别
+                <label><input name="sex" type="radio" value="male" v-model="addForm.sex"/>男</label>
+                <label><input name="sex" type="radio" value="female" v-model="addForm.sex"/>女</label>
+                <label><input name="sex" type="radio" value="other" v-model="addForm.sex"/>其他</label>
+            </div>
+            <div>
+                <label>国家
+                    <select name="country" v-model="addForm.country">
+                        <option value="" disabled selected>请选择国家</option>
+                        <option value="CN">中国</option>
+                        <option value="US">美国</option>
+                        <option value="UK">英国</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>简介<textarea name="desc" v-model="addForm.desc"></textarea></label>
+            </div>
+            <div>
+                <button @click.prevent.stop="cancelAddForm">取消</button>
+                <button @click.prevent.stop="add">确定</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 编辑数据用的表单 -->
+    <div v-show="editFormVisible">
+        <h1>编辑图书</h1>
+        <form>
+            <input name="id" type="hidden" v-model="editForm.id"/>
+            <div>
+                <label>书名<input name="name" v-model="editForm.name"/></label>
+            </div>
+            <div>
+                <label>作者<input name="author" v-model="editForm.author"/></label>
+            </div>
+            <div>
+                性别
+                <label><input name="sex" type="radio" value="male" v-model="editForm.sex"/>男</label>
+                <label><input name="sex" type="radio" value="female" v-model="editForm.sex"/>女</label>
+                <label><input name="sex" type="radio" value="other" v-model="editForm.sex"/>其他</label>
+            </div>
+            <div>
+                <label>国家
+                    <select name="country" v-model="editForm.country">
+                        <option value="" disabled selected>请选择国家</option>
+                        <option value="CN">中国</option>
+                        <option value="US">美国</option>
+                        <option value="UK">英国</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <label>简介<textarea name="desc" v-model="editForm.desc"></textarea></label>
+            </div>
+            <div>
+                <button @click.prevent.stop="cancelEditForm">取消</button>
+                <button @click.prevent.stop="edit">确定</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                id: 3,
+                addFormVisible: false,
+                editFormVisible: false,
+                books: [
+                    {
+                        id: 2,
+                        name: 'book3',
+                        author: 'author3',
+                        sex: 'female',
+                        country: 'CN',
+                        desc: 'desc3'
+                    }, {
+                        id: 1,
+                        name: 'book2',
+                        author: 'author2',
+                        sex: 'other',
+                        country: 'UK',
+                        desc: 'desc2'
+                    }, {
+                        id: 0,
+                        name: 'book1',
+                        author: 'author1',
+                        sex: 'female',
+                        country: 'US',
+                        desc: 'desc1'
+                    },
+                ],
+                addForm: {
+                    name: '',
+                    author: '',
+                    sex: 'other',
+                    country: '',
+                    desc: ''
+                },
+                editForm: {
+                    id: 0,
+                    name: '',
+                    author: '',
+                    sex: 'other',
+                    country: '',
+                    desc: ''
+                }
+            }
+        },
+        methods: {
+            openAddForm() {
+                this.addFormVisible = true
+            },
+            openEditForm(id) {
+                this.editFormVisible = true
+                // 回显数据
+                console.log(id)
+                for (let i = 0; i < this.books.length; i++) {
+                    const book = this.books[i]
+                    if (book.id === id) {
+                        // 查找到对应数据将表单中的内容赋值给该数据
+                        for (let key in book) {
+                            // 遍历对象所有属性
+                            // 将book中对应属性赋值给editForm中对应的属性
+                            this.editForm[key] = book[key]
+                        }
+                        break
+                    }
+                }
+            },
+            cancelAddForm() {
+                this.addFormVisible = false
+            },
+            cancelEditForm() {
+                this.editFormVisible = false
+            },
+            add() {
+                console.log(this.addForm)
+                // 克隆表单数据
+                let book = Object.assign({}, this.addForm)
+                // 添加id
+                book.id = this.id++
+                // 在数组头部插入数据
+                this.books.unshift(book)
+                // 隐藏表单
+                this.addFormVisible = false
+                this.addForm.name = ''
+                this.addForm.author = ''
+                this.addForm.sex = 'other'
+                this.addForm.country = ''
+                this.addForm.desc = ''
+            },
+            edit() {
+                for (let i = 0; i < this.books.length; i++) {
+                    const book = this.books[i]
+                    if (book.id === this.editForm.id) {
+                        // 查找到对应数据将表单中的内容赋值给该数据
+                        for (let key in book) {
+                            // 遍历对象所有属性
+                            // 将editForm中对应属性赋值给book中对应的属性
+                            book[key] = this.editForm[key]
+                        }
+                        break
+                    }
+                }
+                this.editFormVisible = false
+            },
+            remove(id) {
+                console.log(id)
+
+                let result = confirm(`确定要删除id为${id}的数据么？`)
+                if (!result) return
+
+                let index = -1 // 声明用于保存需要删除的数据索引
+
+                // 找到对应id的book
+                for (let i = 0; i < this.books.length; i++) {
+                    const book = this.books[i]
+                    if (book.id === id) {
+                        // 请不要在遍历数组的同时去操作数组
+                        index = i
+                        break
+                    }
+                }
+
+                if (index !== -1) {
+                    this.books.splice(index, 1)
+                }
+            }
+        }
+    })
+</script>
+</html>

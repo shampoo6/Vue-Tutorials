@@ -33,3 +33,7 @@ git version 2.27.0.windows.1
 #### 线上git仓库
 - github: https://github.com/
 - gitee(码云): https://gitee.com/
+
+#### 私库
+- GitLab: https://about.gitlab.com/
+- Gogs: https://gogs.io/

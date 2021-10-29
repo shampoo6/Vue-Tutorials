@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: black;
+        }
+
+        .box.active {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div>
+        <h1>通过class开关灯</h1>
+        <div :class="clazz"></div>
+        <button @click="switchLight1">{{isOpen1? '关闭': '打开'}}</button>
+    </div>
+    <div>
+        <h1>通过style开关灯</h1>
+        <div class="box" :style="style"></div>
+        <button @click="switchLight2">{{isOpen2? '关闭': '打开'}}</button>
+    </div>
+</div>
+</body>
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data() {
+            return {
+                isOpen1: false,
+                clazz: ['box'],
+                isOpen2: false,
+                style: {
+                    backgroundColor: 'black'
+                }
+            }
+        },
+        methods: {
+            switchLight1() {
+                if (!this.isOpen1) {
+                    this.clazz.push('active')
+                } else {
+                    this.clazz.pop()
+                }
+                this.isOpen1 = !this.isOpen1
+            },
+            switchLight2() {
+                if (!this.isOpen2) {
+                    this.style.backgroundColor = 'yellow'
+                } else {
+                    this.style.backgroundColor = 'black'
+                }
+                this.isOpen2 = !this.isOpen2
+            }
+        }
+    })
+</script>
+</html>

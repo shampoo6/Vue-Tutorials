@@ -32,7 +32,21 @@ pm2 常用命令
 | pm2 stop my-server | 停止指定服务 |
 | pm2 delete my-server | 从pm2列表中删除服务 |
 
+启动方法：
+```batch
+# 运行js文件
+pm2 start app.js --name <你的服务名>
+# 运行npm命令
+pm2 start npm --name <你的服务名> -- run <你的脚本名>
+```
+
+集群启动的方法：
+```batch
+pm2 start npm --name <你的服务名> -i <集群数或max> -- run <你的脚本名>
+```
+
 #### 配置防火墙白名单
 ```
-firewall-cmd --add-port=10406/tcp --permanent;firewall-cmd --reload
+firewall-cmd --add-port=10406/tcp --permanent
+firewall-cmd --reload
 ```

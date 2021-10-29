@@ -1,4 +1,5 @@
 ## 安装vue-router
+官网：https://router.vuejs.org/zh/
 
 #### 介绍
 vue-router基于vue的路由组件，用于页面之间的引用或切换

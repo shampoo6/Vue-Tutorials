@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <parent/>
+    </div>
+</body>
+<script>
+    const Parent = {
+        template: `
+            <div>
+                <div>{{text}}</div>
+                <child :text="text" @input-change="onInputChnage"/>
+            </div>
+        `,
+        data() {
+            return {
+                text: ''
+            }
+        },
+        methods: {
+            onInputChnage(value) {
+                this.text = value
+            }
+        }
+    }
+
+    const Child = {
+        template: `
+            <div>
+                <input :value="text" @input="onInputChange"/>
+            </div>
+        `,
+        props: {
+            text: {
+                type: String,
+                default() {
+                    return ''
+                }
+            }
+        },
+        methods: {
+            onInputChange(ev) {
+                let value = ev.target.value
+                // 发送value值给父组件，通知父组件修改text
+                this.$emit('input-change', value)
+            }
+        }
+    }
+
+    Vue.component('parent', Parent)
+    Vue.component('child', Child)
+
+    new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

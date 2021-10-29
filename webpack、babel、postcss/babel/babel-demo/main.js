@@ -1,6 +1,6 @@
 const babel = require('@babel/core')
 
-// babel.transform(`()=>{console.log('test')}`, {presets: ['@babel/preset-env']}, function (err, result) {
+// babel.transform(`const fn = ()=>{console.log('test')}`, {presets: ['@babel/preset-env']}, function (err, result) {
 //     if (err) {
 //         console.error(err)
 //     } else {

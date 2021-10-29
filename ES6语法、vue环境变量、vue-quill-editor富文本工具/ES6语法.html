@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
 
 </body>
@@ -58,12 +60,12 @@
        sdg`)
 
     // 解构赋值
-    let obj = {name: '这是名称', age: '这是年龄'}
-    let {name, age} = obj
+    let obj = { name: '这是名称', age: '这是年龄' }
+    let { name, age } = obj
     // console.log(name)
     // console.log(age)
     // 方法参数中使用结构赋值
-    function fn5({name, age}) {
+    function fn5({ name, age }) {
         console.log('fn5')
         console.log(name)
         console.log(age)
@@ -82,8 +84,8 @@
     fn6('x', 'y', 'other1', 'other2', 'other3')
 
     // 对象扩展
-    let obj1 = {a: 1, b: 2}
-    let obj2 = {c: 3, d: 4}
+    let obj1 = { a: 1, b: 2 }
+    let obj2 = { c: 3, d: 4 }
     let obj3 = Object.assign(obj1, obj2);
     console.log(obj1)
     console.log(obj2)
@@ -107,5 +109,20 @@
     // Promise.all()
     // Promise.race()
 
+
+    // 定义对象属性和方法的简写
+
+    let p = 'hello'
+    let obj5 = {
+        // 传统定义方法，需要声明key和value
+        // p: p
+        // 但当 key 和 value 的名称相同时，可以省略冒号后的内容
+        p,
+        // 传统定义函数
+        // fn: function(){}
+        // 可以简写成
+        fn() { }
+    }
 </script>
+
 </html>

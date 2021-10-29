@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <card>
+        <!-- 匿名插槽
+            该插槽没有名字 直接使用 slot 标签即可
+            作用：将组件内的标签体插入到 slot 标签处
+        -->
+        <h1><span style="color: red">hello</span> world</h1>
+    </card>
+
+    <card2>
+        <!-- 具名插槽
+            插槽标签上需要注明名称 例如 <slot name="header"></slot>
+            使用的时候在父组件中使用 template 标签插入内容到插槽中
+        -->
+        <template v-slot:footer>
+            我的footer
+        </template>
+        <!-- 使用 v-slot 指令指定插入内容到哪一个插槽 -->
+        <template v-slot:header>
+            我的插槽header
+        </template>
+        <!-- v-slot缩写 -->
+        <template #content>
+            我的content
+        </template>
+        <!-- 在存在具名插槽的组件中若想使用匿名插槽 请将内容插入到 default 中 -->
+        <template #default>
+            default
+        </template>
+    </card2>
+
+    <card3>
+        <!-- 作用域插槽 -->
+        <template slot-scope="scope">
+            <p><b style="color: blue">{{scope.slotUser.name + ' ' + scope.slotUser.age + ' ' + scope.slotSex}}</b></p>
+        </template>
+    </card3>
+</div>
+
+</body>
+<script>
+
+    // 匿名插槽
+    const myCard = {
+        // 在组件的插槽中可以存在默认的内容
+        template: `
+            <div class="card">
+                <div class="card-header">head</div>
+                <div class="card-content">
+                    <slot>
+                        <h3>我<i style="color:red;">爱中</i>国</h3>
+                    </slot>
+                </div>
+                <div class="card-footer">footer</div>
+            </div>
+        `
+    }
+
+    // 具名插槽
+    const myCard2 = {
+        template: `
+            <div class="card">
+                <div class="card-header">
+                    <slot name="header"></slot>
+                </div>
+                <div class="card-content">
+                    <slot name="content"></slot>
+                </div>
+                <slot></slot>
+                <div class="card-footer">
+                    <slot name="footer"></slot>
+                </div>
+            </div>
+        `
+    }
+
+    // 作用域插槽
+    // 作用：用在父组件在插槽中想要访问子组件内的属性时，可以使用作用域插槽
+    // 作用域插槽不能是具名插槽
+
+
+    /* 作用域插槽 绑定一个自定义属性 将希望暴露给父组件的内容传给该属性 */
+    const myCard3 = {
+        template: `
+            <div class="card">
+                <div class="card-header">
+                    <slot name="header"></slot>
+                </div>
+                <div class="card-content">
+                    <slot :slotSex="sex" :slotUser="user"></slot>
+                </div>
+            </div>
+        `,
+        data() {
+            return {
+                user: {
+                    name: '张三',
+                    age: 16
+                },
+                sex: 'male'
+            }
+        }
+    }
+
+
+    // 组件插槽是用于定义组件的标签体显示什么内容的工具
+    const vm = new Vue({
+        el: '#app',
+        components: {
+            card: myCard,
+            card2: myCard2,
+            card3: myCard3,
+        },
+        data() {
+            return {}
+        },
+        methods: {}
+    })
+
+</script>
+</html>

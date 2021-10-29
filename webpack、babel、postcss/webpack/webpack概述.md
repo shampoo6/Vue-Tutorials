@@ -1,5 +1,5 @@
 ## webpack
-资源打包工具（还有类似工具：glup grunt）
+资源打包工具（还有类似工具：gulp grunt）
 
 解决项目资源依赖的问题
 
