@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script src="js/rsa.html.js"></script>
+    <script src="js/axios.min.js"></script>
+</head>
+<body>
+<input/>
+<button class="send">发送</button>
+<button class="getpk">获取pk</button>
+</body>
+<script>
+    const btnGetPk = document.querySelector('.getpk')
+    const btnSend = document.querySelector('.send')
+    const inp = document.querySelector('input')
+
+    let key // 公钥对象
+
+    btnGetPk.addEventListener('click', () => {
+        axios.post('/getPk').then(r => {
+            console.log(r)
+            let pkStr = r.data.pk
+            // 通过 rsa 创建一个 key 对象
+            key = new NodeRSA({b: 512})
+            key.importKey(pkStr, 'pkcs1-public')
+        })
+    })
+
+    btnSend.addEventListener('click', () => {
+        // 加密
+        let r = key.encrypt(inp.value)
+        axios.post('/decrypt', {r}).then(r => {
+            console.log(r.data)
+        })
+    })
+</script>
+</html>
