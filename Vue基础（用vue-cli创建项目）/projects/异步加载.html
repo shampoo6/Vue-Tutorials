@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <component :is="c"></component>
+        <div>
+            <button @click="switchComponent(1)">component1</button>
+            <button @click="switchComponent(2)">component2</button>
+        </div>
+    </div>
+</body>
+<script>
+    // 异步加载
+    // 当组件需要被渲染时 vue 才会加载该组件
+
+    // 通过函数形式 返回一个promise
+    // promise 中 resolve 组件的配置
+    // 该函数称为该组件的工厂函数
+    const Component1 = () => {
+        return new Promise(resolve => {
+            resolve({
+                template: `
+                    <div>
+                        <h1>Component1</h1>
+                    </div>
+                `,
+                // 以下生命周期函数将在切换组件时触发
+                created() {
+                    console.log('created');
+                },
+                destroyed() {
+                    console.log('destroyed');
+                }
+            })
+        })
+    }
+
+    // 也可以直接声明一个 promise 内的回调函数作为组件
+    const Component2 = (resolve) => {
+        // 由于是异步组件 所以这里可以模拟网络延迟
+        // 异步加载组件会被缓存下来
+        // 下次渲染组件就不需要再从服务器拉取了
+        setTimeout(() => {
+            resolve({
+                template: `
+                    <div>
+                        <h1>Component2</h1>
+                        <input/>
+                    </div>
+                `,
+                created() {
+                    console.log('component2 created');
+                }
+            })
+        }, 3000)
+    }
+
+
+    let app = new Vue({
+        el: '#app',
+        data() {
+            return {
+                c: Component1
+            }
+        },
+        methods: {
+            switchComponent(num) {
+                this.c = num === 1 ? Component1 : Component2
+            }
+        }
+    })
+</script>
+
+</html>
