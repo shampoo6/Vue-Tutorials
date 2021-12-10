@@ -91,3 +91,20 @@ git config --system --unset credential.helper
 ```shell script
 git config --global credential.helper store
 ```
+
+### 设置代理
+有时会遇到因为代理而无法连接git仓库的问题，例如：连接github时报错：
+
+```shell script
+fatal: unable to access '***': Failed to connect to github.com port 443 after 2096 ms: Connection refused
+```
+
+此时可以设置git代理来解决
+
+命令为：
+
+```shell script
+# 注意：该命令应该经过url编码
+# userName 和 password 是代理的账号密码不是 git 仓库的
+git config --global http.proxy http[s]://userName(encoded):password(encoded)@proxyaddress:port
+```
