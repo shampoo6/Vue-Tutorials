@@ -17,7 +17,7 @@ git clone url
 #### 添加
 ```shell script
 git add path # 路径可以是文件也可以是文件夹
-git  add . # 添加项目下所有文件
+git add . # 添加项目下所有文件
 ```
 #### 查看仓库状态
 ```shell script
@@ -75,4 +75,19 @@ git checkout <branchName>
 #### 融合分支
 ```shell script
 git merge <branchName>
+```
+
+### 重置git会话
+有时要切换其他git账号提交项目，需要先重置git会话
+```shell script
+# 用管理员模式运行
+git config --system --unset credential.helper
+```
+若依然 push 不成功，可以查看用户文件夹下是否存在 `.git-credentials` 该文件
+
+该文件保存了用户的账号密码，删除该文件再试即可
+
+### 保存登录凭证
+```shell script
+git config --global credential.helper store
 ```
