@@ -39,6 +39,12 @@
         <div v-bind:class="'color'+num1">这是color1</div>
         <div v-bind:class="'color'+num2">这是color2</div>
     </div>
+    <!-- 可以直接使用v-bind="object"将对象属性做为html属性绑定，例如 -->
+    <div>
+        <div v-bind="{id: 'thisIsVBindId', class: 'my-class', myData: 'thisIsMyData'}"></div>
+        <!-- 注意：独立属性始终优先于v-bind的属性 -->
+        <div id="ok" v-bind="{id: 'notOk'}"></div>
+    </div>
     <!-- 双向绑定 -->
     <form>
         <div>{{inputValue}}</div>

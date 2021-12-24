@@ -106,5 +106,6 @@ fatal: unable to access '***': Failed to connect to github.com port 443 after 20
 ```shell script
 # 注意：该命令应该经过url编码
 # userName 和 password 是代理的账号密码不是 git 仓库的
+# 代理服务器不存在账号密码则不需要写
 git config --global http.proxy http[s]://userName(encoded):password(encoded)@proxyaddress:port
 ```
