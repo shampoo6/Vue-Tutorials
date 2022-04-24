@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <table border>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="user in users" :key="user.id">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.sex}}</td>
+                    <td>{{user.age}}</td>
+                    <td>
+                        <!-- 使用v-on绑定事件
+                            语法：v-on:事件名="expression"
+                            expression: expression代表两种情况
+                            1. 直接填一个函数
+                            2. 填入js表达式
+                        -->
+                        <!-- 情况一 -->
+                        <!-- <button v-on:click="remove1" :data-id="user.id">删除</button> -->
+                        <!-- @ 是 v-on 的缩写 -->
+                        <!-- 使用箭头函数来充当函数值 -->
+                        <!-- <button @click="()=>{remove2(user.id)}">删除</button> -->
+                        <!-- 情况二 -->
+                        <!-- 将remove3作为js表达式进行调用 -->
+                        <!-- 加入此处想要使用事件对象，则可以使用默认的 $event 变量 -->
+                        <button @click="remove3(user.id, $event)">删除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- 按键修饰符 https://staging-cn.vuejs.org/guide/essentials/event-handling.html#key-modifiers -->
+        <!-- <input @keyup.enter="onKeyUp" type="text"> -->
+        <!-- <input @keyup.w="onKeyUp" type="text"> -->
+        <input @keyup.ctrl.q="onKeyUp" type="text">
+        <input @keyup.ctrl.q.exact="onKeyUp" type="text">
+        <!-- 鼠标修饰符用在鼠标触发的事件上 -->
+        <div @click.middle="onClick" style="width:100px;height:100px;background-color: #f00"></div>
+    </div>
+</body>
+<script>
+    // 知识点：
+    // v-on绑定事件基础
+    //    1. 绑定函数值
+    //    2. 绑定js表达式
+    //    3. $event
+    // 指令修饰符
+    //    1. 事件修饰符
+    //        1. .prevent
+    //        2. .stop
+    //        3. .once
+    //    2. 按键修饰符
+    //        1. 按键修饰符（例如按下w键等指定字母键）
+    //        2. 系统修饰符
+    //        3. 按键别名（enter space left right 等）
+    //        4. .exact
+    //    3. 鼠标修饰符
+
+
+
+    const App = {
+        data() {
+            return {
+                users: [
+                    {
+                        id: 0,
+                        name: '张三',
+                        sex: 'male',
+                        age: 17
+                    },
+                    {
+                        id: 1,
+                        name: '李四',
+                        sex: 'female',
+                        age: 24
+                    },
+                    {
+                        id: 2,
+                        name: '老王',
+                        sex: 'other',
+                        age: 30
+                    },
+                ]
+            }
+        },
+        methods: {
+            // 赋值函数给 v-on 时，此处将接收一个默认参数 event
+            remove1(event) {
+                // event 是事件对象
+                console.log(event);
+                // 获取id值
+                let id = Number(event.target.getAttribute('data-id'))
+                console.log(id);
+
+                let i = this.users.findIndex(user => user.id === id)
+                this.users.splice(i, 1)
+            },
+            remove2(id) {
+                let i = this.users.findIndex(user => user.id === id)
+                this.users.splice(i, 1)
+            },
+            remove3(id, event) {
+                console.log(event);
+                let i = this.users.findIndex(user => user.id === id)
+                this.users.splice(i, 1)
+            },
+            onKeyUp() {
+                console.log('key up');
+            },
+            onClick() {
+                console.log('click');
+            }
+        }
+    }
+
+    let app = Vue.createApp(App)
+    let vm = app.mount('#app')
+</script>
+
+</html>

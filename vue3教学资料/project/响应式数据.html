@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    // 知识点：
+    // 什么是响应式属性？
+    // 应用场景
+    // 声明响应式属性
+    // 访问属性
+    //     1. 页面中访问
+    //     2. 组件中访问
+    // 和非响应式属性做对比
+
+    const App = {
+        template: `
+            <div>
+                <!-- 插值，插入数据 -->
+                {{count}}
+            </div>
+        `,
+        // created() {
+        //     // vue 对象创建完成后
+        //     this.count = 0
+        //     // 声明一个每秒更新的计时器
+        //     setInterval(() => {
+        //         this.count++
+        //         console.log(this.count);
+        //     }, 1000)
+        // }
+        data() {
+            return {
+                count: 0
+            }
+        },
+        mounted() {
+            // vue 对象挂载完成后
+            setInterval(() => {
+                this.count++
+                console.log(this.count);
+            }, 1000)
+        }
+    }
+
+    Vue.createApp(App).mount('#app')
+</script>
+
+</html>

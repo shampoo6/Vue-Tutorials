@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            {{usd}}
+            <form>
+                <div><label>name: <input type="text" v-model="name"></label></div>
+                <div><label>name: <input type="text" v-model="form.name"></label></div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    // 知识点：
+    // 什么是监听器
+    // 应用场景
+    // 声明监听器
+    // 触发监听器
+
+
+
+    const App = {
+        data() {
+            return {
+                name: '',
+                form: {
+                    name: ''
+                },
+                rmb: 0
+            }
+        },
+        computed: {
+            // 返回通过rmb换算的美元值
+            usd() {
+                return this.rmb * 0.16
+            }
+        },
+        // 监听器就是监听属性变化的函数
+        watch: {
+            // key 要监听的属性名 value 是一个函数
+            name(newValue, oldValue) {
+                // newValue 代表属性变化后的值
+                // oldValue 代表属性变化前的值
+                console.log(newValue);
+                console.log(oldValue);
+            },
+            // 监听对象属性
+            'form.name': function (newValue, oldValue) {
+                console.log(newValue);
+                console.log(oldValue);
+            },
+            // 给计算属性添加监听器
+            usd(newValue, oldValue) {
+                console.log(newValue);
+                console.log(oldValue);
+            }
+        }
+    }
+
+    let app = Vue.createApp(App)
+    let vm = app.mount('#app')
+</script>
+
+</html>

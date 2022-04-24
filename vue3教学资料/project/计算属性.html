@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.global.js"></script>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 创建一个用于 vue 对象挂载的节点 -->
+    <div id="app">
+        <div>
+            <div>{{now}}</div>
+            <div>{{nowStr}}</div>
+            <div style="height: 100px; background-color: red;"></div>
+            <div :style="{backgroundColor: 'gray', height: boxHeight}"></div>
+        </div>
+    </div>
+</body>
+<script>
+    // 知识点：
+    // 什么是计算属性？
+    // 应用场景
+    // 声明计算属性
+    // 访问计算属性
+    // 计算属性的get和set
+
+
+
+
+    // 计算属性在 vue 组件中被当作属性使用，但本质上是一个函数
+
+
+    const App = {
+        data() {
+            return {
+                now: new Date(),
+            }
+        },
+        // 计算属性
+        // 使用场景：
+        // 1. 用在数据格式化
+        // 2. 用于一些需要通过计算才能获得的属性，能够快速访问他们，相当于宏(marco)
+        computed: {
+            // nowStr() {
+            //     // 计算属性中一定要返回一个值
+            //     return `${this.now.getFullYear()}-${this.now.getMonth() + 1}-${this.now.getDate()}`
+            // },
+            nowStr: {
+                get() {
+                    return `${this.now.getFullYear()}-${this.now.getMonth() + 1}-${this.now.getDate()}`
+                },
+                set(value) {
+                    this.now = new Date(value)
+                }
+            },
+            boxHeight() {
+                return window.innerHeight - 100 + 'px'
+            }
+        }
+    }
+
+    // 创建 vue 应用程序
+    let app = Vue.createApp(App)
+
+    // 挂载应用
+    let vm = app.mount('#app')
+</script>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <form>
+            <div>
+                <!-- <label>姓名: <input :value="name" @input="onNameChange" type="text"/></label> -->
+                <!-- v-model 称为双向绑定，所谓的双向就是将 :value="name" @input="onNameChange" 融合在一起了 -->
+                <!-- .trim修饰符可以自动首位去空格 -->
+                <label>姓名: <input v-model.trim="name" type="text" /></label>
+            </div>
+            <div>
+                <!-- 可以使用 .number 修饰符 让 v-model 的值变为数字类型 -->
+                <label>年龄: <input v-model.number="age" type="number" /></label>
+            </div>
+            <div>
+                <label>性别: </label>
+                <label><input v-model="sex" type="radio" value="male">男</label>
+                <label><input v-model="sex" type="radio" value="female">女</label>
+                <label><input v-model="sex" type="radio" value="other">其他</label>
+            </div>
+            <div>
+                <label>爱好: </label>
+                <label><input v-model="hobby" type="checkbox" value="dlq">打篮球</label>
+                <label><input v-model="hobby" type="checkbox" value="tzq">踢足球</label>
+                <label><input v-model="hobby" type="checkbox" value="ymq">羽毛球</label>
+            </div>
+            <div>
+                <label>班级:
+                    <select v-model="clazz">
+                        <option value="" disabled>请选择</option>
+                        <option value="1">一班</option>
+                        <option value="2">二班</option>
+                        <option value="3">三班</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <textarea v-model="desc" rows="3"></textarea>
+            </div>
+            <div>
+                <button @click.prevent.stop="submit">提交</button>
+            </div>
+        </form>
+    </div>
+</body>
+<script>
+
+    // 知识点：
+    // 什么是双向绑定
+    // 各种表单元素的v-model双向绑定
+    // 指令修饰符
+    //   1. .trim
+    //   2. .number
+    //   3. .lazy
+    //   4. .prevent
+    //   5. .stop
+    // 双向绑定和响应式的区别
+
+
+    // 创建 vue 应用程序
+    let app = Vue.createApp({
+        data() {
+            return {
+                name: '张三',
+                age: 16,
+                sex: 'other',
+                hobby: ['dlq', 'tzq', 'ymq'],
+                clazz: '',
+                desc: '你好\n霉丧星',
+            }
+        },
+        methods: {
+            onNameChange(ev) {
+                console.log(ev);
+                this.name = ev.target.value
+            },
+            submit() {
+                console.log(this.$data);
+            }
+        }
+    })
+
+    // 挂载应用
+    let vm = app.mount('#app')
+</script>
+
+</html>

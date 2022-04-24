@@ -2,10 +2,11 @@
 
 本教程使用 windows 系统，以 github 为例，gitee 类似，不再赘述
 
-https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh
+<https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh>
 
 ## 什么是 ssh
-https://www.ssh.com/academy/ssh/protocol
+
+<https://www.ssh.com/academy/ssh/protocol>
 
 ssh: 一个安全的远程登陆和文件传输协议
 
@@ -53,7 +54,8 @@ ssh: 一个安全的远程登陆和文件传输协议
   - 至此密钥创建完成
 
 ## 为 github 添加 ssh 密钥
-https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+
+<https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>
 
 - 拷贝自己的公钥文件
   - ```bash
@@ -95,6 +97,7 @@ provide shell access.
 ```
 
 ## 后续操作
+
 当设置好 `ssh key` 后，就可以通过 `ssh` 链接拉取项目了
 
 后续项目的提交推送操作也和之前的 `git` 用法没有区别，只是不用在输入账号密码了
@@ -102,6 +105,7 @@ provide shell access.
 ## 常见问题
 
 ### 测试 github 连接时无法通过
+
 造成这个问题的原因是 `ssh` 默认端口是 `22` 而 `github` 则使用的是 `443` 所以我们需要修改访问的端口，方法如下：
 
 在 `ssh key` 所在的文件夹 `.ssh` 下创建文件 `config` 内容如下：
@@ -116,7 +120,7 @@ Host github.com
 
 ### 修改已有项目的远程连接方式
 
-https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#switching-remote-urls-from-https-to-ssh
+<https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#switching-remote-urls-from-https-to-ssh>
 
 若已经有项目的连接方式使用的 `http[s]`
 
@@ -137,6 +141,7 @@ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
 ```
 
 ### 每次重启后
+
 `ssh-agent` 并不会随系统自动启动，所以每次开机后需要重新开启 `ssh-agent` 和 添加 `ssh key`
 
 ```bash

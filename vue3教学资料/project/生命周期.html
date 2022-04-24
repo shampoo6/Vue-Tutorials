@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    // 知识点：
+    // 什么是生命周期
+    // 应用场景
+    // setup
+    // beforeCreate
+    // created
+    // beforeMount
+    // mounted
+    // beforeUpdate
+    // updated
+    // beforeUnmount
+    // unmounted
+
+
+
+    const App = {
+        template: `
+            <div>{{count}}</div>
+            <!-- 绑定事件 -->
+            <button v-on:click="increase">+</button>
+        `,
+        data() {
+            return {
+                count: 0
+            }
+        },
+        // 绑定的事件写在 methods 中
+        methods: {
+            increase() {
+                this.count++
+            }
+        },
+        // 以下是生命周期函数
+        // setup 组合式api执行的地方
+        setup() {
+            console.log('setup')
+        },
+        // 创建vue对象前
+        beforeCreate() {
+            console.log('beforeCreate');
+        },
+        // vue对象创建完成后
+        created() {
+            console.log('created');
+        },
+        // 挂在前
+        beforeMount() {
+            console.log('beforeMount');
+        },
+        // 挂在完成
+        mounted() {
+            console.log('mounted');
+        },
+        // 更新前
+        beforeUpdate() {
+            console.log('beforeUpdate');
+        },
+        // 更新完成
+        updated() {
+            console.log('updated');
+        },
+        // 卸载前
+        beforeUnmount() {
+            console.log('beforeUnmount');
+        },
+        // 卸载完成
+        unmounted() {
+            console.log('unmounted');
+        }
+    }
+
+    let app = Vue.createApp(App)
+    let r = app.mount('#app')
+    // mount 函数返回的是组件代理对象
+    console.log(r);
+
+    // 触发 beforeUnmount 和 unmounted 生命周期
+    // 可以使用 app.unmount() 方法
+
+
+    // 生命周期有什么用？
+    // 例如: 
+    // 1. 通过网络请求获取数据的代码就可以放到 mounted 函数中
+    // 2. 给页面绑定全局对象的事件时 如：window.onresize 事件，可以放到 created 函数中
+    // 3. 在 beforeUnmount 中可以注销某些全局事件
+</script>
+
+</html>

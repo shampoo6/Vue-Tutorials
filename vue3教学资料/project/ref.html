@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <div>
+                <!-- 给输入取一个 ref 的名称为 inp -->
+                <input ref="inp" type="text">
+                <button @click="changeInp">按钮1</button>
+            </div>
+            <div>
+                <input :ref="el=>{ input = el }" type="text">
+                <button @click="getInput">按钮2</button>
+            </div>
+            <div>
+                <Child ref="child"></Child>
+                <button @click="getChild">按钮3</button>
+            </div>
+            <!-- v-for 中可以使用 ref
+                元素将被存储到对应名称的数组中
+            -->
+            <div v-for="word in words"><input ref="words" type="text" :value="word"></div>
+        </div>
+    </div>
+</body>
+<script>
+    // 知识点：
+    // 什么是ref？
+    // 应用场景
+    // 给html元素添加ref
+    // 读取ref的值
+    // 给组件添加ref
+    // 结合组件expose暴露属性
+    // 函数形式声明ref
+
+
+
+
+    // ref 的作用：用来获取页面元素或组件
+
+    const Child = {
+        // 暴露子组件属性给父组件访问
+        expose: ['a', 'b', 'fn1'],
+        template: `
+            <div>
+                <button>child按钮</button>
+            </div>
+        `,
+        data() {
+            return {
+                a: 1,
+                b: 2
+            }
+        },
+        methods: {
+            fn1() {
+                console.log('fn1');
+            }
+        }
+    }
+
+    const App = {
+        components: {
+            Child
+        },
+        data() {
+            return {
+                input: null,
+                words: ['a', 'b', 'c']
+            }
+        },
+        methods: {
+            changeInp() {
+                // 读取页面元素inp
+                console.log(this.$refs.inp);
+                this.$refs.inp.value = '这是通过ref设置的值'
+            },
+            getInput() {
+                console.log(this.input);
+                this.input.value = '这是通过函数ref设置的值'
+            },
+            getChild() {
+                // 可以通过ref获取组件
+                console.log(this.$refs.child);
+                console.log(this.$refs.child.a);
+                console.log(this.$refs.child.b);
+                this.$refs.child.fn1()
+            }
+        }
+    }
+
+    let app = Vue.createApp(App)
+    let vm = app.mount('#app')
+</script>
+
+</html>

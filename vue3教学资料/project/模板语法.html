@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <!-- 插值
+                插值可以访问以下内容
+                1. data 中的数据
+                2. methods 中的方法
+                插值可以插入的都是vue组件中的内容，且插值的内容实际是js表达式
+            -->
+            <h1>{{'count的值为: ' + count}}</h1>
+
+            <!-- v-once 只插入一次静态值，之后修改属性值，则不在更新 -->
+            <div v-once>{{count}}</div>
+
+            <!-- 插入 html (相当于 innerHTML)
+                尽量不要使用，因为改技术可能导致注入漏洞
+            -->
+            <div v-html="html" class="html"></div>
+            <!-- <div v-html="html2"></div> -->
+
+            <!-- 插入纯文本 (相当于 innerText) -->
+            <div v-text="html"></div>
+
+            <!-- 属性绑定
+                绑定html属性的值
+            -->
+            <!-- <img v-bind:src="img.src" v-bind:width="img.width" v-bind:height="img.height"/> -->
+            <!-- v-bind的缩写为冒号 -->
+            <!-- <img :src="img.src" :width="img.width" :height="img.height"/> -->
+            <!-- 一次绑定多个属性值 -->
+            <img v-bind="img" />
+
+
+
+            <!-- 指令 https://staging-cn.vuejs.org/api/built-in-directives.html#built-in-directives -->
+            <!-- 指令就是在 vue 模板中 又 v- 开头，写在html属性上的表达式 -->
+
+            <!-- 
+                v-bind
+                v-on
+                v-once
+                v-if
+                v-for
+                v-slot
+                v-html
+                v-text
+             -->
+
+            <!-- 指令修饰符
+                .once
+                .prevent
+                .stop
+                .trim
+                .number
+            -->
+            <!-- 此处以 .prevent 为例 -->
+            <form action="https://www.baidu.com">
+                <button v-on:click.prevent="submit">跳转</button>
+            </form>
+
+
+            <div v-bind="box"></div>
+        </div>
+    </div>
+</body>
+<script>
+    // 知识点：
+    // 什么是模板？
+    // 应用场景
+    // 插值
+    // v-once
+    // v-html
+    // v-text
+    // v-bind
+    // v-bind绑定多个属性值
+    // 什么是指令
+    // 什么是指令修饰符
+
+
+
+
+    const App = {
+        // template: `
+        //     <div>
+        //     </div>
+        // `,
+        data() {
+            return {
+                count: 1,
+                html: `<div>hello&nbsp;<span style="color: red;">world</span></div>`,
+                html2: `<img src="" onerror="alert(123)"/>`,
+                img: {
+                    src: '../md-img/2022-03-25-10-05-54.png',
+                    width: 128,
+                    height: 128
+                },
+                box: {
+                    id: 'box',
+                    class: 'box',
+                    style: { backgroundColor: 'red', width: '100px', height: '100px' }
+                }
+            }
+        },
+        methods: {
+            submit() {
+                console.log('submit');
+            }
+        }
+    }
+
+    const app = Vue.createApp(App)
+    const vm = app.mount('#app')
+</script>
+
+</html>

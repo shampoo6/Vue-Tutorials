@@ -6,6 +6,7 @@ moment.locale('zh-cn')
 // 格式化
 let time = moment()
 
+console.log(time.toDate()); // 获取 moment 对应的 Date 对象
 
 // moment().format();
 // moment().format(String);
@@ -14,7 +15,7 @@ let time = moment()
 // 该参数指定将时间格式化成何种样式
 // 该方法返回一个格式化完成的字符串
 
-                            // 2020-10-23 14:36:45
+// 2020-10-23 14:36:45
 // let YYYY = 2020
 // let MM = 10
 // let DD = 23

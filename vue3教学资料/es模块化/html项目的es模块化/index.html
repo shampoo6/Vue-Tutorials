@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<!-- script type="module" 此处的脚本使用了 es 模块语法 -->
+<script type="module">
+    // 导入默认导出的内容
+    // import m1 from './js/m1.js'
+
+    // 导入局部导出的内容
+    // import { fn3, x, obj } from './js/m1.js'
+
+    // 并列导入多个内容
+    import m1, { fn3, x, obj } from './js/m1.js'
+
+    // 导入所有内容
+    import * as M1 from './js/m1.js'
+
+    // 使用 as 关键字给导入的内容取别名，可以用来区分重名的变量
+    import {a} from './js/m1.js'
+    import {a as m2A} from './js/m2.js'
+
+    console.log(m1);
+    console.log(m1.obj)
+    m1.fn1()
+
+    fn3()
+    console.log(x);
+    console.log(obj);
+
+    console.log(M1);
+
+    console.log(a);
+    console.log(m2A);
+</script>
+
+</html>

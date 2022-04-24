@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <table border>
+            <thead>
+                <tr>
+                    <th>索引</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- v-for 中
+                    user 每个数组成员
+                    users 数组对象
+                    且 v-for 需要添加 key，key为一个唯一不重复的值
+                -->
+                <!-- <tr v-for="user in users" :key="user.name">
+                    <td>{{user.name}}</td>
+                    <td>{{user.sex}}</td>
+                    <td>{{user.age}}</td>
+                </tr> -->
+
+                <!-- index 每个成员索引 -->
+                <tr v-for="(user, index) in users" :key="user.name">
+                    <td>{{index}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.sex}}</td>
+                    <td>{{user.age}}</td>
+                    <td><button @click="()=>{remove(index)}">删除</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    // 知识点：
+    // v-for key
+
+
+    const App = {
+        data() {
+            return {
+                users: [
+                    {
+                        name: '张三',
+                        sex: 'female',
+                        age: 16
+                    },
+                    {
+                        name: '李四',
+                        sex: 'male',
+                        age: 24
+                    },
+                    {
+                        name: '老王',
+                        sex: 'other',
+                        age: 30
+                    },
+                ]
+            }
+        },
+        methods: {
+            remove(i){
+                this.users.splice(i, 1)
+            }
+        }
+    }
+    let app = Vue.createApp(App)
+    let vm = app.mount('#app')
+</script>
+
+</html>

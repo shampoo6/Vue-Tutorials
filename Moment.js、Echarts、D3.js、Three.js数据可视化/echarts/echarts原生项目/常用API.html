@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/echarts.js"></script>
+    <style>
+        #root {
+            width: 50%;
+            height: 50%;
+        }
+    </style>
+</head>
+
+<body style="height: 100vh; display: flex;">
+    <!-- 声明 echarts 根节点 -->
+    <div id="root"></div>
+    <div>
+        <div>
+            电器<input class="dq" type="number"> 日用<input class="ry" type="number"> 零食<input class="ls" type="number">
+        </div>
+        <div>
+            <button class="md">修改数据</button>
+        </div>
+        <div>
+            <button onclick="e.showLoading()">showLoading</button>
+            <button onclick="e.hideLoading()">hideLoading</button>
+        </div>
+        <div>
+            <button class="downloadImg">导出图片</button>
+        </div>
+        <div>
+            <button onclick="e.dispose()">销毁实例</button>
+        </div>
+    </div>
+</body>
+<script>
+    // 知识点 https://echarts.apache.org/zh/api.html#echartsInstance
+    // setOption 动态更新数据
+    // resize 函数动态重置图像大小
+    // showLoading hideLoading 来开关加载状态
+    // getDataURL 导出图片
+    // clear 清空图
+    // dispose 销毁实例
+    // action 模拟触发图表功能
+    // 接收事件
+
+
+    let dq = document.querySelector('.dq')
+    let ry = document.querySelector('.ry')
+    let ls = document.querySelector('.ls')
+    let md = document.querySelector('.md')
+    let downloadImg = document.querySelector('.downloadImg')
+
+
+    // 初始化echarts
+    let e = echarts.init(document.querySelector('#root'))
+    let option = {
+        title: {
+            text: '超市月销售数据表'
+        },
+        xAxis: {
+            type: 'category',
+            data: ['电器', '日用', '零食']
+        },
+        yAxis: {
+            name: '单位/万元',
+            type: 'value'
+        },
+        series: [
+            {
+                data: [13, 8, 10],
+                type: 'bar',
+                showBackground: true,
+                backgroundStyle: {
+                    color: 'rgba(180, 180, 180, 0.2)'
+                }
+            }
+        ]
+    }
+    e.setOption(option)
+
+
+
+    // 动态修改数据
+    md.addEventListener('click', () => {
+        // 先清空图像
+        e.clear()
+
+        e.showLoading() // 显示加载中提示
+
+        setTimeout(() => {
+            let arr = option.series[0].data
+            arr[0] = Number(dq.value)
+            arr[1] = Number(ry.value)
+            arr[2] = Number(ls.value)
+            // 调用 echarts 实例对象的 setOption 方法
+            e.setOption(option)
+
+            e.hideLoading()
+        }, 3000)
+    })
+
+    // 窗口重置大小
+    // echarts 对象也随之更新大小
+    window.addEventListener('resize', () => {
+        // e.resize()
+        // resize 方法接收一个对象参数
+        e.resize({ width: window.innerWidth * 0.5, height: window.innerHeight * 0.5 })
+    })
+
+    // 下载图片
+    downloadImg.addEventListener('click', () => {
+        // 可以将 echarts 转换成一个 base64 格式的图片
+        let url = e.getDataURL()
+        // console.log(url);
+
+        let a = document.createElement('a')
+        a.href = url // 给a标签的href赋值图像的url
+        a.download = 'test.png' // 修改下载文件的名称
+        document.body.appendChild(a) // 插入标签
+        a.click() // 模拟点击a标签进行下载
+        a.remove()
+    })
+
+
+    // echarts 接收事件
+    // 使用 on 方法绑定事件
+    // 第一个参数：事件名
+    // 第二个参数：事件处理程序
+    // 第三个参数：事件处理程序中 this 的指代
+    e.on('click', function (ev) {
+        // 事件处理程序中 可以获取事件对象 ev
+        console.log(ev);
+        console.log(this);
+    }, 'this is my this')
+</script>
+
+</html>

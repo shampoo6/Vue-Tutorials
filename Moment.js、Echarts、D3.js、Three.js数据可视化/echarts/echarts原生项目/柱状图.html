@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/echarts.js"></script>
+    <style>
+        #root {
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 声明 echarts 根节点 -->
+    <div id="root"></div>
+</body>
+<script>
+    // 初始化echarts
+    let e = echarts.init(document.querySelector('#root'))
+
+    // let option = {
+    //     title: [
+    //         {
+    //             text: '这是我的标题',
+    //             link: 'https://bilibili.com',
+    //             textStyle: {
+    //                 color: '#00f',
+    //                 fontStyle: 'italic',
+    //                 fontSize: 64
+    //             },
+    //             left: 'center'
+    //         }
+    //     ],
+    //     polar: {
+    //         radius: [30, '80%']
+    //     },
+    //     angleAxis: { // 角度轴的配置
+    //         max: 10,
+    //         startAngle: 0
+    //     },
+    //     radiusAxis: {
+    //         type: 'category',
+    //         data: ['柱1', '柱2', '柱3', '柱4'] // 坐标轴名称
+    //     },
+    //     tooltip: {
+    //         formatter: `
+    //             <ul>
+    //                 <li>系列名称: {a}</li>
+    //                 <li>类目值: {b}</li>
+    //                 <li>值: {c}</li>
+    //             </ul>
+    //         `
+    //     },
+    //     series: { // series 是表格数据的配置
+    //         type: 'bar', // 数据类型 bar 代表柱状图
+    //         data: [7, 5, 9, 3],
+    //         coordinateSystem: 'polar',
+    //         label: {
+    //             show: true,
+    //             position: 'middle',
+    //             formatter: '{b}: {c}'
+    //         }
+    //     }
+    // };
+
+    let option = {
+        title: {
+            text: 'Stacked Area Chart'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            },
+            formatter: `
+                <ul>
+                    <li>系列名称: {a}</li>
+                    <li>类目值: {b}</li>
+                    <li>值: {c}</li>
+                </ul>
+            `
+        },
+        legend: {
+            data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        grid: {
+            left: '10%',
+            right: '15%',
+            bottom: '10%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                name: '星期几(单位/天)',
+                type: 'category',
+                boundaryGap: true,
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: 'Email',
+                type: 'bar',
+                stack: 'Total',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [120, 132, 101, 134, 90, 230, 210]
+            },
+            {
+                name: 'Union Ads',
+                type: 'bar',
+                stack: 'Total',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [220, 182, 191, 234, 290, 330, 310]
+            },
+            {
+                name: 'Video Ads',
+                type: 'bar',
+                stack: 'Total',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [150, 232, 201, 154, 190, 330, 410]
+            },
+            {
+                name: 'Direct',
+                type: 'bar',
+                stack: 'Total',
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [320, 332, 301, 334, 390, 330, 320]
+            },
+            {
+                name: 'Search Engine',
+                type: 'bar',
+                stack: 'Total',
+                label: {
+                    show: true,
+                    position: 'top'
+                },
+                areaStyle: {},
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [820, 932, 901, 934, 1290, 1330, 1320]
+            }
+        ]
+    }
+
+    // 设置 echarts 的 options 选项
+    // 参数可以参考官网的demo
+    e.setOption(option)
+</script>
+
+</html>

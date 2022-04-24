@@ -1,0 +1,1 @@
+export let a = 'm2的a';
