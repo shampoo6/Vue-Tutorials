@@ -17,6 +17,8 @@ import {computed} from 'vue';
 // 消费者别名
 // 消费者默认值
 // 响应式注入
+//    响应式属性使用 .value 取值
+//    自动解包配置 app.config.unwrapInjectedRef = true;
 // 应用层 Provide
 
 export default {

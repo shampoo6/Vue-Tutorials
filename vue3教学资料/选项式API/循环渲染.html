@@ -48,6 +48,9 @@
 <script>
     // 知识点：
     // v-for key
+    // 注意事项
+    // 若要修改数组，请尽量使用数组的方法，例如 push splice unshift shift pop，而不是给数组的索引赋值
+    // 因为在 vue2 给数组索引直接赋值，会导致数组成员变成非响应式的
 
 
     const App = {
@@ -73,7 +76,7 @@
             }
         },
         methods: {
-            remove(i){
+            remove(i) {
                 this.users.splice(i, 1)
             }
         }

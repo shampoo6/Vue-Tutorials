@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <my-form ref="form1"></my-form>
+        <my-form ref="form2"></my-form>
+        <div>
+            <button @click="read">读取所有表单数据</button>
+            <button @click="clear">清空所有表单数据</button>
+        </div>
+    </div>
+</body>
+<script>
+    const MyForm = {
+        expose: ['submit', 'reset'],
+        template: `
+        <form>
+            <div><label>姓名: <input type="text" v-model="name"></label></div>
+            <div><label>性别: </label>
+                <label><input type="radio" v-model="sex" value="male">男</label>
+                <label><input type="radio" v-model="sex" value="female">女</label>
+                <label><input type="radio" v-model="sex" value="other">其他</label>
+            </div>
+            <div><label>年龄: <input type="number" v-model="age"></label></div>
+            <div>
+                <button @click.prevent.stop="reset">重置</button>
+                <button @click.prevent.stop="submit">读取数据</button>
+            </div>
+        </form>
+        `,
+        data() {
+            return {
+                name: '',
+                sex: 'other',
+                age: 0
+            }
+        },
+        methods: {
+            reset() {
+                this.name = ''
+                this.sex = 'other'
+                this.age = 0
+            },
+            submit() {
+                console.log(this.$data);
+            }
+        }
+    }
+
+    const App = {
+        components: {
+            MyForm
+        },
+        methods: {
+            read() {
+                this.$refs.form1.submit()
+                this.$refs.form2.submit()
+            },
+            clear() {
+                this.$refs.form1.reset()
+                this.$refs.form2.reset()
+            }
+        }
+    }
+
+    const app = Vue.createApp(App)
+    const vm = app.mount('#app')
+</script>
+
+</html>

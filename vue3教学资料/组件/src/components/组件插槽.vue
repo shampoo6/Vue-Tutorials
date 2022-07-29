@@ -1,14 +1,14 @@
 <template>
   <div>
     <slot-component>
-      <!-- 子组件中的数据，无法在父组件的标签体中直接引用 -->
-      <!--      {{name}}-->
-      <!-- 作用域插槽
-        slotScope 是插槽暴露出的属性对象
-       -->
-      <template v-slot="slotScope">
-        {{ JSON.stringify(slotScope) }}
-        {{ slotScope.n }} {{ slotScope.a }}
+      <!-- 匿名作用域插槽 -->
+      <template v-slot:default="props">
+        {{props.n}} {{props.a}}
+      </template>
+
+      <!-- 具名作用域插槽 -->
+      <template #header="props">
+        {{props.c}}
       </template>
 
       <!-- 标签体中的内容将默认插入匿名插槽 -->

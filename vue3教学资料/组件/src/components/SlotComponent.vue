@@ -6,7 +6,7 @@
     <div>
       <h1>header</h1>
       <!-- 具名插槽 -->
-      <slot name="header"></slot>
+      <slot name="header" :c="2"></slot>
     </div>
     <div>
       <h1>content</h1>

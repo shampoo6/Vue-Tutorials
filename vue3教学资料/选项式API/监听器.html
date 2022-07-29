@@ -15,7 +15,9 @@
             {{usd}}
             <form>
                 <div><label>name: <input type="text" v-model="name"></label></div>
-                <div><label>name: <input type="text" v-model="form.name"></label></div>
+                <div><label>form.name: <input type="text" v-model="form.name"></label></div>
+                <div><label>arr[0]: <input type="text" v-model="arr[0]"></label></div>
+                <div><label>arr[1].t: <input type="text" v-model="arr[1].t"></label></div>
             </form>
         </div>
     </div>
@@ -26,6 +28,11 @@
     // 应用场景
     // 声明监听器
     // 触发监听器
+    //      1. 属性
+    //      2. 对象
+    //      3. 数组成员
+    //      4. 数组成员的属性
+    // 总结: 监听器的 key 可以使用字符串，通过 . 运算符连接想要访问的引用路径
 
 
 
@@ -36,7 +43,8 @@
                 form: {
                     name: ''
                 },
-                rmb: 0
+                rmb: 0,
+                arr: ['1', { t: '2' }]
             }
         },
         computed: {
@@ -63,6 +71,14 @@
             usd(newValue, oldValue) {
                 console.log(newValue);
                 console.log(oldValue);
+            },
+            // 监听数组成员
+            'arr.0': function () {
+                console.log('arr[0]');
+            },
+            // 监听数组成员属性
+            'arr.1.t': function () {
+                console.log('arr[1].t');
             }
         }
     }

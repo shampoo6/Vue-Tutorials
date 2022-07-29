@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <label>请输入人民币的金额: <input type="number" v-model="cny"></label>
+            <div>卢布: <input type="number" readonly :value="rub"></div>
+            <div>日元: <input type="number" readonly :value="jpy"></div>
+            <ul>
+                <li>股价: {{price}}</li>
+                <li>股民余额: {{balance}}</li>
+                <li>股份: {{count}}</li>
+                <li>市值: {{value}}</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script>
+    const App = {
+        data() {
+            return {
+                cny: 0,
+                price: 10, // 股票价格
+                balance: 100, // 股民的余额
+                count: 0, // 股票数量
+                timer: null, // 计时器id
+            }
+        },
+        mounted() {
+            setInterval(() => {
+                // 随机 -0.5 ~ 0.5 的数字
+
+                let num = Number((-0.5 + Math.random()).toFixed(2))
+                this.price += num
+                this.price = Number(this.price.toFixed(2))
+            }, 200)
+        },
+        computed: {
+            rub() {
+                return (this.cny * 15.54).toFixed(2)
+            },
+            jpy() {
+                return (this.cny * 19.43).toFixed(2)
+            },
+            value() {
+                return this.count * this.price
+            }
+        },
+        watch: {
+            price(newValue, oldValue) {
+                if (newValue < 9 && this.count === 0) {
+                    // 股价小于9元 自动满仓
+                    this.count = this.balance / this.price
+                    this.balance = 0
+                } else if (newValue >= 9.5 && this.count > 0) {
+                    // 卖出
+                    this.balance = this.count * this.price
+                    this.count = 0
+                }
+            }
+        }
+    }
+
+    const app = Vue.createApp(App)
+    const vm = app.mount('#app')
+</script>
+
+</html>

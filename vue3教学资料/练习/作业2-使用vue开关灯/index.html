@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/vue.global.js"></script>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: #000;
+        }
+
+        .active {
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h1>class 开关灯</h1>
+            <div :class="clazz"></div>
+            <div>
+                <button @click="toggle1">{{clazz.active? '关灯': '开灯'}}</button>
+            </div>
+            <h1>style 开关灯</h1>
+            <div :style="style" class="box"></div>
+            <div>
+                <button @click="toggle2">{{style.backgroundColor === '#000'? '开灯': '关灯'}}</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+
+    const App = {
+        data() {
+            return {
+                clazz: {
+                    box: true,
+                    active: false
+                },
+                style: {
+                    backgroundColor: '#000'
+                }
+            };
+        },
+        methods: {
+            toggle1() {
+                this.clazz.active = !this.clazz.active
+            },
+            toggle2() {
+                if (this.style.backgroundColor === '#000') {
+                    this.style.backgroundColor = 'yellow'
+                } else {
+                    this.style.backgroundColor = '#000'
+                }
+            }
+        }
+    };
+
+    let app = Vue.createApp(App);
+    let vm = app.mount('#app');
+</script>
+
+</html>

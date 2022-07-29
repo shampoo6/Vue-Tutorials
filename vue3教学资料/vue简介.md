@@ -31,11 +31,11 @@ Vue 不支持 IE8 及以下版本，因为 Vue 使用了 IE8 无法模拟的 ECM
 
 MVVM设计如下：
 
-![mvvm](./img/1.png)
+![mvvm](./md-img//1.png)
 
 vue的响应式设计如下：
 
-![响应式](./img/2.png)
+![响应式](./md-img/2.png)
 
 图中有几个重要概念：
 
