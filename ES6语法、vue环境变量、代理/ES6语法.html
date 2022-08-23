@@ -71,6 +71,10 @@
         console.log(age)
     }
 
+    // 结构的时候取别名
+    let duplicateObj = { name: '这是名称', age: '这是年龄' }
+    let { name: n, age: ag } = duplicateObj
+
     fn5(obj)
 
     // rest参数

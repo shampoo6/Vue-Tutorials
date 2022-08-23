@@ -32,6 +32,22 @@ export default {
 };
 </script>
 
+<!--<script setup>
+import {onBeforeRouteLeave, onBeforeRouteUpdate} from 'vue-router'
+
+// 路由更新前
+onBeforeRouteUpdate((to, from, next) => {
+  console.log('onBeforeRouteUpdate')
+  next()
+})
+
+// 路由离开前
+onBeforeRouteLeave((to, from, next) => {
+  console.log('onBeforeRouteLeave')
+  next()
+})
+</script>-->
+
 <style scoped>
 
 </style>

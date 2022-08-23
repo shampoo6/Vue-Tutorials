@@ -1,4 +1,6 @@
 .idea
+.vscode
+dist
 /empty-project.zip
 node_modules
 package-lock.json

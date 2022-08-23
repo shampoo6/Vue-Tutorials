@@ -32,6 +32,7 @@ npm install echarts
 2. 声明一个echarts的根节点，类似于vue.js的根节点
 3. 实例化echarts对象
 4. 使用option对象配置echarts
+5. 可以使用 setOption 来更新数据
 
 ### vue项目中使用echarts
 

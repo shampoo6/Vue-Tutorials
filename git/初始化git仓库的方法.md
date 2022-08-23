@@ -1,19 +1,32 @@
 # 初始化git仓库的方法
 
-- 创建远程仓库(创建好远程仓库后，可以有两种方法来创建本地仓库)
-  - `git init`
-    - `git init` 创建的仓库无法直接和远程仓库建立关联，必须在仓库中加入任一文件
-    - 所以操作流程如下：
-      - `git init`
-      - 在仓库中创建一个 `.gitkeep` 文件
-      - `git add .`
-      - `git commit -m "init"`
-      - `git push`
-      - `git remote add origin <url>` 添加要推送代码的远程仓库地址 url就是仓库地址
-      - `git push --set-upstream origin master` 设置默认推送地址位 master 主枝
-      - 执行完成后，以后的所有 `git push` 命令都可以不带参数执行了
-  - `git clone` 克隆仓库
-    - `git clone <url>` url 是远程仓库的地址
+## 什么是git仓库
 
-> `git clone` 多用于克隆已有的远程仓库到本地
-> `git init` 多用于从零开始初始化一个本地仓库
+git 用来存储数据的地方
+
+git 仓库中会包含一个<b>隐藏文件夹</b> `.git`
+
+git 的所有命令应该在 git 仓库文件夹下运行
+
+## 初始化仓库
+
+### 初始化远程仓库
+
+通常在远程仓库服务器上，通过服务器提供的页面或接口来创建，例如: github 或 gitee 提供的创建仓库功能
+
+### 初始化本地仓库
+
+有两种方法
+
+1. 使用 `git clone <url>` 命令来创建项目，其中，参数 url 是仓库地址
+2. 使用 `git init` 命令初始化仓库
+   - `git init` 创建的仓库无法直接和远程仓库建立关联，所以需要手动关联
+       - 流程如下：
+         - `git init`
+         - 在仓库中创建一个 `.gitkeep` 文件
+         - `git add .`
+         - `git commit -m "init"`
+         - `git push`
+         - `git remote add origin <url>` 添加要推送代码的远程仓库地址 url就是仓库地址
+         - `git push --set-upstream origin master` 设置默认推送地址位 master 主枝
+         - 执行完成后，以后的所有 `git push` 命令都可以不带参数执行了

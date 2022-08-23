@@ -1,7 +1,7 @@
 // 知识点
 // 什么时 webpack-dev-server
 // 安装 webpack-dev-server
-// 配置 webapck-dev-server
+// 配置 webpack-dev-server
 // 通过命令 npx webpack-dev-server 运行，例如: npx webpack-dev-server --config build/webpack-dev-server配置.js --mode=development
 
 
